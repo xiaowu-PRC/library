@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="619.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.library.About">
+   <children>
+      <ImageView fx:id="img" fitHeight="300.0" fitWidth="300.0" layoutX="252.0" layoutY="40.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@../../../image/test.jpg" />
+         </image>
+         <viewport>
+            <Rectangle2D height="300.0" width="300.0" />
+         </viewport>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="44.0" layoutY="425.0" prefHeight="145.0" prefWidth="741.0" text="本软件著作人：田所浩二&#10;公司所在地：日本国东京都下北泽&#10;授权时间：卢雷元年8月10日，当时24岁，是学生，在下北泽读书。&#10;自我介绍：私は田尾浩二と申します。私は24歳で、下北沢エリアの別荘地に住んでいます。まだ結婚していません。 私は大学院生のために勉強していて、午後8時に寮に戻ります。 8時間の睡眠を保証するには、寝る前に暖かい紅茶を1杯飲んでから、寝る前に20分のストレッチをしなければなりません。 翌日、赤ちゃんのように、ストレスもなく、疲れもなく、新しい朝を迎えます" wrapText="true" />
+   </children>
+</AnchorPane>

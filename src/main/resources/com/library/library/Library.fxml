@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.library.LibraryController">
+   <children>
+      <TextField fx:id="usernametxt" layoutX="229.0" layoutY="165.0" />
+      <TextField fx:id="passwordtxt" layoutX="229.0" layoutY="219.0" />
+      <Label layoutX="169.0" layoutY="164.0" text="账号：">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="169.0" layoutY="218.0" text="密码：">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Button fx:id="login" layoutX="198.0" layoutY="324.0" mnemonicParsing="false" onAction="#login" prefHeight="34.0" prefWidth="64.0" text="登录" />
+      <Button fx:id="exit" layoutX="302.0" layoutY="324.0" mnemonicParsing="false" onAction="#exit" prefHeight="34.0" prefWidth="64.0" text="退出" />
+      <Label alignment="CENTER" layoutX="109.0" layoutY="60.0" prefHeight="15.0" prefWidth="398.0" text="图书管理系统V1.14.514" textAlignment="CENTER">
+         <font>
+            <Font name="Microsoft YaHei Bold" size="30.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
