@@ -16,19 +16,47 @@ public class MainFrameController {
     private MenuItem aboutus;
     @FXML
     private MenuBar bar;
+    @FXML
+    private MenuItem TypeAdd;
 
-
+    @FXML
+    private MenuItem maintenance;
     @FXML
     void about(ActionEvent event) {
         Stage thirdScene = new Stage();
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("About.fxml"));
-            thirdScene.setTitle("主界面");
+            thirdScene.setTitle("版权信息©");
             thirdScene.setScene(new Scene(root));
             thirdScene.show();
-            Stage stage = (Stage) bar.getScene().getWindow();
-            stage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void add(ActionEvent event) {
+        Stage newscene = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("BookTypeAdd.fxml"));
+            newscene.setTitle("添加图书");
+            newscene.setScene(new Scene(root));
+            newscene.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void maintenance(ActionEvent event) {
+        Stage newscene = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("ManageInterFrm.fxml"));
+            newscene.setTitle("图书维护");
+            newscene.setScene(new Scene(root));
+            newscene.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

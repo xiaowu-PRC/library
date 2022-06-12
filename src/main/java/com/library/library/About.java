@@ -9,7 +9,7 @@ public class About {
 
     public void showImage() {
         try {
-            img.setImage(new javafx.scene.image.Image("/images/test.jpg"));
+            img.setImage(new javafx.scene.image.Image("/images/about.jpg"));
             img.setCache(true);
         } catch (Exception e) {
             e.printStackTrace();

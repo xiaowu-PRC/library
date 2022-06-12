@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.library.MainFrameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.library.MainFrameController">
    <top>
       <MenuBar fx:id="bar" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="基本数据维护">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
+               <items>
+                  <Menu mnemonicParsing="false" text="图书类别管理">
+                    <items>
+                        <MenuItem fx:id="TypeAdd" mnemonicParsing="false" onAction="#add" text="图书类别添加" />
+                      <MenuItem fx:id="maintenance" mnemonicParsing="false" onAction="#maintenance" text="图书类别维护" />
+                    </items>
+                  </Menu>
+               </items>
           </Menu>
           <Menu mnemonicParsing="false" text="关于我们">
             <items>

@@ -1,5 +1,8 @@
 package com.library.library;
 
+import com.leewyatt.rxcontrols.controls.RXPasswordField;
+import com.leewyatt.rxcontrols.controls.RXTextField;
+import com.leewyatt.rxcontrols.event.RXActionEvent;
 import dao.UserDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import util.Dbutil;
 import util.User;
@@ -23,15 +25,17 @@ public class LibraryController {
     private Button exit;
 
     @FXML
-    private TextField usernametxt;
+    private RXTextField usernametxt;
+
 
     @FXML
-    private TextField passwordtxt;
+    private RXPasswordField passwordtxt;
 
     @FXML
     private Button login;
     private UserDao userdao = new UserDao();
     private Dbutil dbutil = new Dbutil();
+
 
     @FXML
     void login(ActionEvent event) {
@@ -82,5 +86,9 @@ public class LibraryController {
             alert3.close();
         }
     }
-
+    @FXML
+    void deleteText(RXActionEvent event) {
+        RXTextField tf = (RXTextField) event.getSource();
+        tf.clear();
+    }
 }
