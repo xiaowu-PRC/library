@@ -7,7 +7,7 @@ public class Dbutil {
     private String dbUrl="jdbc:mysql://localhost:3306/library";
     private String dbUser="root";
     private String dbPass="Lxcisasb181107";
-    private String jdbc="com.mysql.jdbc.Driver";
+    private String jdbc="com.mysql.cj.jdbc.Driver";
     public Connection getConnection() throws Exception{
         Class.forName(jdbc);
         return DriverManager.getConnection(dbUrl,dbUser,dbPass);

@@ -47,6 +47,11 @@ public class LibraryController {
             conn = dbutil.getConnection();
             User loginUser = userdao.login(conn, user);
             if (loginUser != null) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("登录成功");
+                alert.setHeaderText("欢迎" + loginUser.getUsername() + "登录");
+                alert.setContentText("登录成功");
+                alert.showAndWait();
                 Stage thirdScene = new Stage();
                 Parent root = null;
                 try {

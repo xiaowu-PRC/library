@@ -17,6 +17,13 @@
                       <MenuItem fx:id="maintenance" mnemonicParsing="false" onAction="#maintenance" text="图书类别维护" />
                     </items>
                   </Menu>
+                  <Menu mnemonicParsing="false" text="图书管理">
+                    <items>
+                      <MenuItem fx:id="bookAdd" mnemonicParsing="false" onAction="#bookAdd" text="图书添加" />
+                        <MenuItem fx:id="BookManage" mnemonicParsing="false" onAction="#BookManage" text="图书维护" />
+                    </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" text="安全退出" />
                </items>
           </Menu>
           <Menu mnemonicParsing="false" text="关于我们">

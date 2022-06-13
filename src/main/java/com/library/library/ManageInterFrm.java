@@ -1,5 +1,6 @@
 package com.library.library;
 
+import dao.BookDao;
 import dao.BookTypeDao;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -51,9 +52,7 @@ public class ManageInterFrm {
     private BookTypeDao booktypedao = new BookTypeDao();
     String query = null;
     Connection conn = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    Tableview tableview = null;
+    private BookDao bookdao = new BookDao();
 
     @FXML
     void initialize() {
@@ -117,7 +116,7 @@ public class ManageInterFrm {
             try {
                 dbutil.close(conn);
             } catch (Exception ex) {
-                throw new RuntimeException(ex);
+                ex.printStackTrace();
             }
         }
     }
@@ -141,6 +140,16 @@ public class ManageInterFrm {
                 if (response == ButtonType.OK) {
                     conn = getConnection();
                     try {
+                        boolean flag = bookdao.existBookTypeId(conn,id);
+                        if(flag)
+                        {
+                            Alert alert1 = new Alert(Alert.AlertType.ERROR);
+                            alert1.setTitle("错误");
+                            alert1.setHeaderText("错误");
+                            alert1.setContentText("该类型下有图书，不能删除");
+                            alert1.showAndWait();
+                            return;
+                        }
                         int deleteNumber;
                         deleteNumber = booktypedao.delete(conn, id);
                         if (deleteNumber > 0) {

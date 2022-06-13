@@ -20,7 +20,13 @@ public class MainFrameController {
     private MenuItem TypeAdd;
 
     @FXML
+    private MenuItem bookAdd;
+
+    @FXML
     private MenuItem maintenance;
+
+    @FXML
+    private MenuItem BookManage;
     @FXML
     void about(ActionEvent event) {
         Stage thirdScene = new Stage();
@@ -34,6 +40,21 @@ public class MainFrameController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void bookAdd(ActionEvent event) {
+        Stage newscene = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("BookAddInterFrm.fxml"));
+            newscene.setTitle("图书添加");
+            newscene.setScene(new Scene(root));
+            newscene.show();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
 
     @FXML
     void add(ActionEvent event) {
@@ -61,4 +82,19 @@ public class MainFrameController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void BookManage(ActionEvent event) {
+        Stage newscene = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("BookManageInterFrm.fxml"));
+            newscene.setTitle("图书管理");
+            newscene.setScene(new Scene(root));
+            newscene.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
