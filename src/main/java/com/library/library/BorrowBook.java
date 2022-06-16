@@ -17,10 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
-import util.Book;
-import util.BookType;
-import util.Dbutil;
-import util.Tableview;
+import util.*;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -67,6 +64,7 @@ public class BorrowBook {
     private Connection conn = null;
     @FXML
     private TableView<Tableview> bookTable;
+    private Book book;
 
     @FXML
     void initialize() {
@@ -77,6 +75,10 @@ public class BorrowBook {
         showData("search");
         bookTable.getSelectionModel().selectedItemProperty().addListener((observableValue, tableview, t1) -> {
             if (t1 != null) {
+                s_idTxt.setDisable(true);
+                s_bookNameTxt.setDisable(true);
+                s_authorTxt.setDisable(true);
+                s_bookTypeJcb.setDisable(true);
                 showData2("modify");
                 s_idTxt.setText(t1.getId());
                 s_bookNameTxt.setText(t1.getBookName());
@@ -231,8 +233,15 @@ public class BorrowBook {
         String author = this.s_authorTxt.getText();
         BookType bookType = this.s_bookTypeJcb.getSelectionModel().getSelectedItem();
         int bookTypeId = bookType.getId();
-        int bookId = Integer.parseInt(s_idTxt.getText());
-        Book book = new Book(bookId, bookName, author, bookTypeId);
+        if (StringUtil.isEmpty(bookName) && StringUtil.isEmpty(author) && bookTypeId == -1 && StringUtil.isEmpty(s_idTxt.getText())) {
+            AlertUtil.showWarning("提示","提示","请输入查询条件");
+        }
+        if (StringUtil.isNotEmpty(s_idTxt.getText())) {
+            int bookId = Integer.parseInt(s_idTxt.getText());
+            book = new Book(bookId, bookName, author, bookTypeId);
+        } else {
+            book = new Book(bookName, author, bookTypeId);
+        }
         showTableData(book);
     }
 
@@ -244,8 +253,15 @@ public class BorrowBook {
 
     @FXML
     void borrow(ActionEvent event) throws IOException {
+        String bookName = this.s_bookNameTxt.getText();
+        String author = this.s_authorTxt.getText();
+        BookType bookType = this.s_bookTypeJcb.getSelectionModel().getSelectedItem();
+        int bookTypeId = bookType.getId();
+        if (StringUtil.isEmpty(bookName) || StringUtil.isEmpty(author) || bookTypeId == -1 || StringUtil.isEmpty(s_idTxt.getText())) {
+            AlertUtil.showError("错误","错误","请重新选择");
+        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmBorrow.fxml"));
-        Parent parent =loader.load();
+        Parent parent = loader.load();
         Scene scene = new Scene(parent);
         Stage stage = new Stage();
         ConfirmBorrow target = loader.getController();
@@ -271,6 +287,10 @@ public class BorrowBook {
         s_bookNameTxt.clear();
         s_authorTxt.clear();
         s_bookTypeJcb.getSelectionModel().select(0);
+        s_idTxt.setDisable(false);
+        s_bookNameTxt.setDisable(false);
+        s_authorTxt.setDisable(false);
+        s_bookTypeJcb.setDisable(false);
     }
 
 

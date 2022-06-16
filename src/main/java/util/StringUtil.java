@@ -189,10 +189,6 @@ public class StringUtil {
         return str==null?true:(str.trim().length()==0?true:false);
     }
     public static boolean isNotEmpty(String str) {
-        if (str != null && str.length() > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return str != null && str.length() > 0;
     }
 }

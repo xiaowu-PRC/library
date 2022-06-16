@@ -17,13 +17,4 @@ public class Dbutil {
                 conn.close();
             }
     }
-    public static void main(String[] args) {
-        Dbutil db=new Dbutil();
-        try{
-            Connection conn=db.getConnection();
-            System.out.println("数据库连接成功");
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
 }

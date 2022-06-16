@@ -15,6 +15,8 @@ module com.library.library {
     requires rxcontrols;
     requires com.jfoenix;
     requires com.almasb.fxgl.all;
+    requires MaterialFX;
+    requires kotlin.stdlib;
 
     opens com.library.library to javafx.fxml, javafx.base;
     opens util to javafx.base;

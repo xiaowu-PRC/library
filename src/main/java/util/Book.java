@@ -9,6 +9,9 @@ public class Book {
     private Integer bookTypeId;
     private String bookTypeName;
     private String bookDesc;
+    private String total;
+    private String remainder;
+    private String b_ID;
 
     public Book() {
         super();
@@ -24,13 +27,24 @@ public class Book {
         this.bookDesc = bookDesc;
     }
 
+
     public Book(String bookName, String author, Integer bookTypeId) {
+        super();
         this.bookName = bookName;
         this.author = author;
         this.bookTypeId = bookTypeId;
     }
 
-    public Book(int id, String bookName, String author, String sex , float price, Integer bookTypeId, String bookDesc) {
+    public Book(int id, String bookName, String author, Integer bookTypeId) {
+        super();
+        this.id = id;
+        this.bookName = bookName;
+        this.author = author;
+        this.bookTypeId = bookTypeId;
+    }
+
+    public Book(int id, String bookName, String author, String sex, float price, Integer bookTypeId, String bookDesc) {
+        super();
         this.id = id;
         this.bookName = bookName;
         this.author = author;
@@ -40,11 +54,59 @@ public class Book {
         this.bookDesc = bookDesc;
     }
 
-    public int getId() {
+    public Book(String bookName, String author, String sex, float price, Integer bookTypeId, String bookDesc, String total, String remainder) {
+        super();
+        this.bookName = bookName;
+        this.author = author;
+        this.sex = sex;
+        this.price = price;
+        this.bookTypeId = bookTypeId;
+        this.bookDesc = bookDesc;
+        this.total = total;
+        this.remainder = remainder;
+    }
+
+
+    public Book(int id, String bookName, String author, String sex, float price, Integer bookTypeId, String bookDesc, String total, String remainder) {
+        super();
+        this.id = id;
+        this.bookName = bookName;
+        this.author = author;
+        this.sex = sex;
+        this.price = price;
+        this.bookTypeId = bookTypeId;
+        this.bookDesc = bookDesc;
+        this.total = total;
+        this.remainder = remainder;
+    }
+
+    public Book(String b_ID, int id, String bookName) {
+        this.b_ID = b_ID;
+        this.id = id;
+        this.bookName = bookName;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public String getRemainder() {
+        return remainder;
+    }
+
+    public void setRemainder(String remainder) {
+        this.remainder = remainder;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -102,5 +164,13 @@ public class Book {
 
     public void setBookDesc(String bookDesc) {
         this.bookDesc = bookDesc;
+    }
+
+    public String getB_ID() {
+        return b_ID;
+    }
+
+    public void setB_ID(String b_ID) {
+        this.b_ID = b_ID;
     }
 }

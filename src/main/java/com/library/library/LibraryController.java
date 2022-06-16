@@ -9,35 +9,30 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import util.AlertUtil;
 import util.Dbutil;
 import util.User;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.Optional;
+import java.util.Objects;
 
 public class LibraryController {
+    public static String User_Uid;
+    public static String User_Name;
     @FXML
     private Button exit;
-
     @FXML
     private RXTextField usernametxt;
-
-
     @FXML
     private RXPasswordField passwordtxt;
-
     @FXML
     private Button login;
     private UserDao userdao = new UserDao();
     private Dbutil dbutil = new Dbutil();
     private int isAdmin;
-    public static String User_Uid;
-    public static String User_Name;
 
     @FXML
     void initialize() {
@@ -54,25 +49,21 @@ public class LibraryController {
         try {
             conn = dbutil.getConnection();
             User loginUser = userdao.login(conn, user);
-            int uid=loginUser.getId();
-            User_Uid=String.valueOf(uid);
-            User_Name=loginUser.getUsername();
             if (loginUser != null) {
+                User_Name = loginUser.getUsername();
+                int uid = loginUser.getId();
+                User_Uid = String.valueOf(uid);
                 if (loginUser.getIsAdmin() == 1) {
                     isAdmin = 1;
                 } else {
                     isAdmin = 0;
                 }
                 if (isAdmin == 1) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("登录成功（管理员）");
-                    alert.setHeaderText("欢迎管理员" + loginUser.getUsername() + "登录");
-                    alert.setContentText("登录成功");
-                    alert.showAndWait();
+                    AlertUtil.showAlert("登录成功", "欢迎", "欢迎管理员" + loginUser.getUsername());
                     Stage thirdScene = new Stage();
                     Parent root = null;
                     try {
-                        root = FXMLLoader.load(getClass().getResource("MainFrm.fxml"));
+                        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainFrm.fxml")));
                         thirdScene.setTitle("管理员主界面");
                         thirdScene.setScene(new Scene(root));
                         thirdScene.show();
@@ -83,14 +74,10 @@ public class LibraryController {
                     }
                 }
                 if (isAdmin == 0) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("登录成功（用户）");
-                    alert.setHeaderText("欢迎亲爱的" + loginUser.getUsername() + "用户登录");
-                    alert.setContentText("登录成功");
-                    alert.showAndWait();
+                    AlertUtil.showAlert("登录成功", "欢迎", "欢迎亲爱的" + loginUser.getUsername() + "用户登录！");
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMainFrm.fxml"));
-                        Parent parent =loader.load();
+                        Parent parent = loader.load();
                         Stage thirdScene = new Stage();
                         Scene scene = new Scene(parent);
                         thirdScene.setTitle("主界面");
@@ -102,12 +89,8 @@ public class LibraryController {
                         e.printStackTrace();
                     }
                 }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("登录失败");
-                alert.setHeaderText("登录失败");
-                alert.setContentText("用户名或密码错误");
-                alert.showAndWait();
+            } else if (loginUser == null) {
+                AlertUtil.showError("失败", "登录失败", "用户名或密码错误");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,10 +105,8 @@ public class LibraryController {
 
     @FXML
     void exit(ActionEvent event) {
-        Alert alert3 = new Alert(Alert.AlertType.CONFIRMATION);
-        alert3.setContentText("确定退出吗？");
-        Optional<ButtonType> result = alert3.showAndWait();
-        if (result.get() == ButtonType.OK) {
+        int result = AlertUtil.showConfirm("二次确认", "退出", "确定退出？");
+        if (result == 1) {
             System.exit(0);
         }
     }

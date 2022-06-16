@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.legacy.MFXLegacyTableView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="775.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.library.ReturnBook">
+   <children>
+      <Label alignment="CENTER" layoutX="362.0" layoutY="14.0" prefHeight="81.0" prefWidth="327.0" text="还书" textAlignment="CENTER">
+         <font>
+            <Font name="Microsoft YaHei Bold" size="43.0" />
+         </font>
+      </Label>
+      <MFXLegacyTableView fx:id="queryTable" layoutX="68.0" layoutY="95.0" prefHeight="400.0" prefWidth="914.0" style="-fx-alignment: CENTER;">
+         <columns>
+            <TableColumn fx:id="no" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="编号" />
+            <TableColumn fx:id="bookId" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="图书编号" />
+            <TableColumn fx:id="bookName" editable="false" prefWidth="150.0" style="-fx-alignment: CENTER;" text="图书名称" />
+            <TableColumn fx:id="startTime" editable="false" prefWidth="121.0" style="-fx-alignment: CENTER;" text="借阅开始日期" />
+            <TableColumn fx:id="endTime" editable="false" prefWidth="106.0" style="-fx-alignment: CENTER;" text="借阅结束日期" />
+            <TableColumn fx:id="appointmentTime" editable="false" prefWidth="150.0" style="-fx-alignment: CENTER;" text="借阅时间" />
+            <TableColumn fx:id="isReturned" editable="false" prefWidth="146.0" style="-fx-alignment: CENTER;" text="归还情况" />
+         </columns>
+      </MFXLegacyTableView>
+      <TitledPane layoutX="68.0" layoutY="519.0" prefHeight="222.0" prefWidth="914.0" text="归还操作">
+         <content>
+            <AnchorPane prefHeight="169.0" prefWidth="849.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="24.0" text="编号：" />
+                  <TextField fx:id="s_no" layoutX="50.0" layoutY="20.0" />
+                  <Label layoutX="298.0" layoutY="24.0" text="图书编号：" />
+                  <TextField fx:id="s_bookIDTxt" layoutX="358.0" layoutY="20.0" />
+                  <Label layoutX="594.0" layoutY="24.0" text="图书名称：" />
+                  <TextField fx:id="s_bookNameTxt" layoutX="654.0" layoutY="20.0" />
+                  <Button fx:id="search" layoutX="261.0" layoutY="121.0" mnemonicParsing="false" onAction="#search" prefHeight="33.0" prefWidth="73.0" text="查询" />
+                  <Button fx:id="giveback" layoutX="384.0" layoutY="121.0" mnemonicParsing="false" onAction="#giveback" prefHeight="33.0" prefWidth="73.0" text="归还" />
+                  <Button fx:id="reset" layoutX="494.0" layoutY="121.0" mnemonicParsing="false" onAction="#reset" prefHeight="33.0" prefWidth="73.0" text="重置" />
+                  <Label layoutX="255.0" layoutY="84.0" text="*注：选择后输入框将禁用，如需查询请先点击重置按钮启用。" underline="true" />
+               </children>
+            </AnchorPane>
+         </content>
+      </TitledPane>
+   </children>
+</AnchorPane>
