@@ -15,31 +15,28 @@ import util.Dbutil;
 import util.StringUtil;
 import util.Tableview;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ManageInterFrm {
+    String query = null;
+    Connection conn = null;
     @FXML
     private Button search;
-
-
     @FXML
     private TextField idtxt;
-
     @FXML
     private TableView<Tableview> booktypetable;
-
     @FXML
     private TextArea desctxt;
-
     @FXML
     private TextField searchtxt;
-
     @FXML
     private TextField nametxt;
-
     @FXML
     private Button change;
-
     @FXML
     private Button del;
     @FXML
@@ -50,8 +47,6 @@ public class ManageInterFrm {
     private TableColumn<Tableview, String> desc;
     private Dbutil dbutil = new Dbutil();
     private BookTypeDao booktypedao = new BookTypeDao();
-    String query = null;
-    Connection conn = null;
     private BookDao bookdao = new BookDao();
 
     @FXML
@@ -90,7 +85,7 @@ public class ManageInterFrm {
             alert.showAndWait();
             return;
         }
-        BookType bookType=new BookType(Integer.parseInt(id),name,desc);
+        BookType bookType = new BookType(Integer.parseInt(id), name, desc);
         Connection conn = null;
         try {
             conn = dbutil.getConnection();
@@ -103,7 +98,7 @@ public class ManageInterFrm {
                 alert3.showAndWait();
                 showData();
             } else {
-                Alert alert4=new Alert(Alert.AlertType.ERROR);
+                Alert alert4 = new Alert(Alert.AlertType.ERROR);
                 alert4.setTitle("错误");
                 alert4.setHeaderText("错误");
                 alert4.setContentText("修改失败");
@@ -140,9 +135,8 @@ public class ManageInterFrm {
                 if (response == ButtonType.OK) {
                     conn = getConnection();
                     try {
-                        boolean flag = bookdao.existBookTypeId(conn,id);
-                        if(flag)
-                        {
+                        boolean flag = bookdao.existBookTypeId(conn, id);
+                        if (flag) {
                             Alert alert1 = new Alert(Alert.AlertType.ERROR);
                             alert1.setTitle("错误");
                             alert1.setHeaderText("错误");
@@ -168,12 +162,12 @@ public class ManageInterFrm {
                             showData();
                         }
                     } catch (Exception ex) {
-                        throw new RuntimeException(ex);
+                        ex.printStackTrace();
                     } finally {
                         try {
                             dbutil.close(conn);
                         } catch (Exception ex) {
-                            throw new RuntimeException(ex);
+                            ex.printStackTrace();
                         }
                     }
                 }
@@ -189,10 +183,10 @@ public class ManageInterFrm {
     public Connection getConnection() {
         try {
             conn = dbutil.getConnection();
-            return conn;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+        return conn;
     }
 
 
@@ -217,6 +211,12 @@ public class ManageInterFrm {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                dbutil.close(conn);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         return TableviewList;

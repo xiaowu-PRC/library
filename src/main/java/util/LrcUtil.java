@@ -37,9 +37,40 @@ import java.util.regex.Pattern;
  * @author LeeWyatt
  * QQ: 9670453
  * QQ群: 518914410
- *
  */
 public class LrcUtil {
+
+    /**
+     * Lrc 时间标签的正则表达式 [mm:ss.fff] 或者[mm:ss]
+     * d{1,5} 分钟数,最少是0,最多是99999 (满足超长音频的可能)
+     * d{1,2} 秒钟数,最少是0,最多是99 (当然了,实际不会超过60)
+     * d{1,3} 毫秒数,最少是0,最多是999
+     */
+    public static String TIME_TAG_REGEX = "(\\[\\d{1,5}:\\d{1,2}\\.\\d{1,3}\\])|(\\[\\d{1,5}:\\d{1,2}\\])";
+    /**
+     * 艺术家
+     */
+    private static String AR_REGEX = "\\[ar:(.*?)\\]";
+    /**
+     * 标题
+     */
+    private static String TI_REGEX = "\\[ti:(.*?)\\]";
+    /**
+     * 专辑
+     */
+    private static String AL_REGEX = "\\[al:(.*?)\\]";
+    /**
+     * 编辑Lrc歌词的人
+     */
+    private static String BY_REGEX = "\\[by:(.*?)\\]";
+    /**
+     * 补偿时值,可以为负数,单位是毫秒
+     */
+    private static String OFFSET_REGEX = "\\[offset:(.*?)\\]";
+    /**
+     * idTags 匹配所有的标签信息
+     */
+    private static String IDTAGS_REGEX = "\\[ar:(.*?)\\]|\\[ti:(.*?)\\]|\\[al:(.*?)\\]|\\[by:(.*?)\\]|\\[offset:(.*?)\\]";
 
     /**
      * 把毫秒数转成 Lrc歌词用的时间标签
@@ -71,14 +102,6 @@ public class LrcUtil {
     }
 
     /**
-     * Lrc 时间标签的正则表达式 [mm:ss.fff] 或者[mm:ss]
-     * d{1,5} 分钟数,最少是0,最多是99999 (满足超长音频的可能)
-     * d{1,2} 秒钟数,最少是0,最多是99 (当然了,实际不会超过60)
-     * d{1,3} 毫秒数,最少是0,最多是999
-     */
-    public static String TIME_TAG_REGEX = "(\\[\\d{1,5}:\\d{1,2}\\.\\d{1,3}\\])|(\\[\\d{1,5}:\\d{1,2}\\])";
-
-    /**
      * 解析一行歌词;
      * 因为可能存在一句话有多个时间标签, 需要一个List ,用于存储多条LrcLine
      * [02:50.340] [03:57.942]只怕我自己会爱上你
@@ -102,37 +125,6 @@ public class LrcUtil {
         parseLrcLines(line, lines);
         return lines;
     }
-
-    /**
-     * 艺术家
-     */
-    private static String AR_REGEX = "\\[ar:(.*?)\\]";
-
-    /**
-     * 标题
-     */
-    private static String TI_REGEX = "\\[ti:(.*?)\\]";
-
-    /**
-     * 专辑
-     */
-    private static String AL_REGEX = "\\[al:(.*?)\\]";
-
-    /**
-     * 编辑Lrc歌词的人
-     */
-    private static String BY_REGEX = "\\[by:(.*?)\\]";
-
-    /**
-     * 补偿时值,可以为负数,单位是毫秒
-     */
-    private static String OFFSET_REGEX = "\\[offset:(.*?)\\]";
-
-    /**
-     * idTags 匹配所有的标签信息
-     */
-    private static String IDTAGS_REGEX = "\\[ar:(.*?)\\]|\\[ti:(.*?)\\]|\\[al:(.*?)\\]|\\[by:(.*?)\\]|\\[offset:(.*?)\\]";
-
 
     /**
      * 把字符串解析成歌词
@@ -163,6 +155,7 @@ public class LrcUtil {
 
     /**
      * 截取id 标签, 获得数据
+     *
      * @param str
      * @param reg
      * @return

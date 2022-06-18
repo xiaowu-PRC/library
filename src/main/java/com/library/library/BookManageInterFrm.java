@@ -17,6 +17,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 
 public class BookManageInterFrm {
+    private final BookType bookType = new BookType();
+    private final BookTypeDao booktypedao = new BookTypeDao();
+    private final BookDao bookdao = new BookDao();
     public ObservableList<BookType> list;
     public ObservableList<BookType> list2;
     Connection conn = null;
@@ -24,9 +27,6 @@ public class BookManageInterFrm {
     Dbutil dbutil = new Dbutil();
     @FXML
     private TableColumn<Tableview, String> Author;
-    private final BookType bookType = new BookType();
-    private final BookTypeDao booktypedao = new BookTypeDao();
-    private final BookDao bookdao = new BookDao();
     @FXML
     private TableColumn<Tableview, String> BookDesc;
 
@@ -192,8 +192,8 @@ public class BookManageInterFrm {
         String bookDesc = bookDescTxt.getText();
         String total = totalTxt.getText();
         String remainder = remainderTxt.getText();
-        int c_total= Integer.parseInt(total);
-        int c_remainder= Integer.parseInt(remainder);
+        int c_total = Integer.parseInt(total);
+        int c_remainder = Integer.parseInt(remainder);
         if (StringUtil.isEmpty(id)) {
             AlertUtil.showError("错误", "错误", "图书编号不能为空");
             return;
@@ -226,8 +226,7 @@ public class BookManageInterFrm {
         }
         BookType bookType = bookTypeJcb.getSelectionModel().getSelectedItem();
         int bookTypeId = bookType.getId();
-        if(c_remainder>c_total)
-        {
+        if (c_remainder > c_total) {
             AlertUtil.showError("错误", "错误", "图书剩余数量不能大于总数量");
             return;
         }

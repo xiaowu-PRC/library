@@ -34,7 +34,6 @@ import java.util.regex.Pattern;
  * @author LeeWyatt
  * QQ: 9670453
  * QQ群: 518914410
- *
  */
 public class StringUtil {
     /**
@@ -88,13 +87,14 @@ public class StringUtil {
      * 按正则表达式进行匹配
      * 字符串 "123ABC456EDF" 如果按照正在表达式[0-9]+匹配
      * 那么可以分成4个部分: [123] ABC [456] EDF
+     *
      * @param text 文本
-     * @param reg 正则表达式
+     * @param reg  正则表达式
      * @return
      */
     public static ArrayList<Pair<String, Boolean>> matchText(String text, String reg) {
         ArrayList<Pair<String, Boolean>> res = new ArrayList<>();
-        if(text==null||text.isEmpty()||reg==null||reg.isEmpty()){
+        if (text == null || text.isEmpty() || reg == null || reg.isEmpty()) {
             res.add(new Pair<>(text, false));
             return res;
         }
@@ -111,12 +111,12 @@ public class StringUtil {
             list.add(m.start());
             list.add(m.end());
         }
-        if(list.size()==0){
+        if (list.size() == 0) {
             res.add(new Pair<>(text, false));
             return res;
         }
 
-        if(list.get(list.size()-1)!=text.length()){
+        if (list.get(list.size() - 1) != text.length()) {
             list.add(text.length());
         }
         boolean flag = true;
@@ -125,7 +125,7 @@ public class StringUtil {
             list.add(0, 0);
         }
         for (int i = 0; i < list.size() - 1; i++) {
-            if(list.get(i).equals(list.get(i + 1))){
+            if (list.get(i).equals(list.get(i + 1))) {
                 flag = !flag;
                 continue;
             }
@@ -188,6 +188,7 @@ public class StringUtil {
     public static boolean isEmpty(String str) {
         return str==null?true:(str.trim().length()==0?true:false);
     }
+
     public static boolean isNotEmpty(String str) {
         return str != null && str.length() > 0;
     }

@@ -9,40 +9,45 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import org.controlsfx.control.SearchableComboBox?>
 
-<AnchorPane prefHeight="778.0" prefWidth="1055.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.library.BorrowBook">
-   <children>
-      <TableView fx:id="bookTable" layoutX="79.0" layoutY="43.0" prefHeight="489.0" prefWidth="851.0">
-        <columns>
-          <TableColumn fx:id="No" editable="false" prefWidth="75.0" text="编号" />
-          <TableColumn fx:id="BookName" editable="false" prefWidth="150.0" text="图书名称" />
-            <TableColumn fx:id="Author" editable="false" prefWidth="75.0" text="图书作者" />
-            <TableColumn fx:id="Sex" editable="false" prefWidth="75.0" text="作者性别" />
-            <TableColumn fx:id="Price" editable="false" prefWidth="75.0" text="图书价格" />
-            <TableColumn fx:id="BookDesc" editable="false" prefWidth="75.0" text="图书描述" />
-            <TableColumn fx:id="BookType" editable="false" prefWidth="75.0" text="图书类别" />
-            <TableColumn fx:id="Total" editable="false" prefWidth="75.0" text="总共数量" />
-            <TableColumn fx:id="Remainder" editable="false" prefWidth="75.0" text="可借数量" />
-        </columns>
-      </TableView>
-      <TitledPane layoutX="79.0" layoutY="549.0" prefHeight="192.0" prefWidth="851.0" text="借阅操作">
-         <content>
-            <AnchorPane prefHeight="169.0" prefWidth="849.0">
-               <children>
-                  <Label layoutX="14.0" layoutY="24.0" text="编号：" />
-                  <RXTextField fx:id="s_idTxt" layoutX="50.0" layoutY="20.0" onClickButton="#deleteText" />
-                  <Label layoutX="237.0" layoutY="24.0" text="图书名称：" />
-                  <RXTextField fx:id="s_bookNameTxt" layoutX="297.0" layoutY="20.0" onClickButton="#deleteText" />
-                  <Label layoutX="491.0" layoutY="24.0" text="图书类别：" />
-                  <SearchableComboBox fx:id="s_bookTypeJcb" layoutX="551.0" layoutY="20.0" />
-                  <Label layoutX="14.0" layoutY="63.0" text="作者：" />
-                  <RXTextField fx:id="s_authorTxt" layoutX="50.0" layoutY="59.0" onClickButton="#deleteText" />
-                  <Button fx:id="search" layoutX="261.0" layoutY="121.0" mnemonicParsing="false" onAction="#search" prefHeight="33.0" prefWidth="73.0" text="查询" />
-                  <Button fx:id="borrow" layoutX="388.0" layoutY="121.0" mnemonicParsing="false" onAction="#borrow" prefHeight="33.0" prefWidth="73.0" text="借阅" />
-                  <Button fx:id="reset" layoutX="521.0" layoutY="121.0" mnemonicParsing="false" onAction="#reset" prefHeight="33.0" prefWidth="73.0" text="重置" />
-                  <Label layoutX="237.0" layoutY="63.0" text="*注：选择后输入框将禁用，如需查询请先点击重置按钮启用。" />
-               </children>
-            </AnchorPane>
-         </content>
-      </TitledPane>
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="778.0" prefWidth="1055.0"
+            xmlns="http://javafx.com/javafx/18" fx:controller="com.library.library.BorrowBook">
+    <children>
+        <TableView fx:id="bookTable" layoutX="79.0" layoutY="43.0" prefHeight="489.0" prefWidth="851.0">
+            <columns>
+                <TableColumn fx:id="No" editable="false" prefWidth="75.0" text="编号"/>
+                <TableColumn fx:id="BookName" editable="false" prefWidth="150.0" text="图书名称"/>
+                <TableColumn fx:id="Author" editable="false" prefWidth="75.0" text="图书作者"/>
+                <TableColumn fx:id="Sex" editable="false" prefWidth="75.0" text="作者性别"/>
+                <TableColumn fx:id="Price" editable="false" prefWidth="75.0" text="图书价格"/>
+                <TableColumn fx:id="BookDesc" editable="false" prefWidth="75.0" text="图书描述"/>
+                <TableColumn fx:id="BookType" editable="false" prefWidth="75.0" text="图书类别"/>
+                <TableColumn fx:id="Total" editable="false" prefWidth="75.0" text="总共数量"/>
+                <TableColumn fx:id="Remainder" editable="false" prefWidth="75.0" text="可借数量"/>
+            </columns>
+        </TableView>
+        <TitledPane layoutX="79.0" layoutY="549.0" prefHeight="192.0" prefWidth="851.0" text="借阅操作">
+            <content>
+                <AnchorPane prefHeight="169.0" prefWidth="849.0">
+                    <children>
+                        <Label layoutX="14.0" layoutY="24.0" text="编号："/>
+                        <RXTextField fx:id="s_idTxt" layoutX="50.0" layoutY="20.0" onClickButton="#deleteText"/>
+                        <Label layoutX="237.0" layoutY="24.0" text="图书名称："/>
+                        <RXTextField fx:id="s_bookNameTxt" layoutX="297.0" layoutY="20.0" onClickButton="#deleteText"/>
+                        <Label layoutX="491.0" layoutY="24.0" text="图书类别："/>
+                        <SearchableComboBox fx:id="s_bookTypeJcb" layoutX="551.0" layoutY="20.0"/>
+                        <Label layoutX="14.0" layoutY="63.0" text="作者："/>
+                        <RXTextField fx:id="s_authorTxt" layoutX="50.0" layoutY="59.0" onClickButton="#deleteText"/>
+                        <Button fx:id="search" layoutX="261.0" layoutY="121.0" mnemonicParsing="false"
+                                onAction="#search" prefHeight="33.0" prefWidth="73.0" text="查询"/>
+                        <Button fx:id="borrow" layoutX="388.0" layoutY="121.0" mnemonicParsing="false"
+                                onAction="#borrow" prefHeight="33.0" prefWidth="73.0" text="借阅"/>
+                        <Button fx:id="reset" layoutX="521.0" layoutY="121.0" mnemonicParsing="false" onAction="#reset"
+                                prefHeight="33.0" prefWidth="73.0" text="重置"/>
+                        <Label layoutX="237.0" layoutY="63.0"
+                               text="*注：选择后输入框将禁用，如需查询请先点击重置按钮启用。"/>
+                    </children>
+                </AnchorPane>
+            </content>
+        </TitledPane>
+    </children>
 </AnchorPane>

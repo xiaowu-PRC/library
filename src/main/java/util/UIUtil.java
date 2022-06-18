@@ -31,11 +31,11 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Control;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+
 /**
  * @author LeeWyatt
  * QQ: 9670453
  * QQ群: 518914410
- *
  */
 public class UIUtil {
 
@@ -108,11 +108,12 @@ public class UIUtil {
 
     /**
      * 获取组件的边框大小
+     *
      * @param control
-     * @param top 上边框
-     * @param right 有边框
-     * @param bottom 下边框
-     * @param left 左边框
+     * @param top     上边框
+     * @param right   有边框
+     * @param bottom  下边框
+     * @param left    左边框
      * @return
      */
     public static double computeBorderSize(Control control, boolean top, boolean right, boolean bottom, boolean left) {
@@ -144,8 +145,9 @@ public class UIUtil {
 
     /**
      * 根据组件的 位置, 边框, 内边距来计算根节点内容面积的大小
+     *
      * @param control 组件
-     * @param root 根节点
+     * @param root    根节点
      */
     public static void clipRoot(Control control, Pane root) {
         Rectangle rect = new Rectangle();
@@ -167,17 +169,18 @@ public class UIUtil {
 
     /**
      * 动画跳转到最后面然后停止.
+     *
      * @param animations 动画
      */
-    public static void animeStopAtEnd(Animation... animations){
-        if(animations==null||animations.length==0){
+    public static void animeStopAtEnd(Animation... animations) {
+        if (animations == null || animations.length == 0) {
             return;
         }
         for (Animation animation : animations) {
-            if(animation==null){
+            if (animation == null) {
                 continue;
             }
-            if(animation.getStatus()!= Animation.Status.STOPPED){
+            if (animation.getStatus() != Animation.Status.STOPPED) {
                 animation.jumpTo(animation.getTotalDuration());
                 animation.stop();
             }
@@ -185,8 +188,8 @@ public class UIUtil {
     }
 
 
-    public static void animeStop(Animation... animations){
-        if(animations==null||animations.length==0){
+    public static void animeStop(Animation... animations) {
+        if (animations == null || animations.length == 0) {
             return;
         }
         for (Animation animation : animations) {

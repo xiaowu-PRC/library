@@ -30,15 +30,14 @@ import java.net.URL;
  * @author LeeWyatt
  * QQ: 9670453
  * QQ群: 518914410
- *
  */
 public final class RXResources {
 
-    public static URL load(String path) {
-        return RXResources.class.getResource(path);
+    private RXResources() {
     }
 
-    private RXResources() {
+    public static URL load(String path) {
+        return RXResources.class.getResource(path);
     }
 
 }

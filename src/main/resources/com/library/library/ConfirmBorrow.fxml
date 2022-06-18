@@ -6,24 +6,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.library.ConfirmBorrow">
-   <children>
-      <Label alignment="CENTER" layoutX="177.0" layoutY="24.0" prefHeight="72.0" prefWidth="246.0" text="确认借阅" textAlignment="CENTER">
-         <font>
-            <Font name="Microsoft YaHei Bold" size="30.0" />
-         </font>
-      </Label>
-      <Label layoutX="102.0" layoutY="120.0" text="借阅人：" />
-      <Label layoutX="90.0" layoutY="151.0" text="借阅书名：" />
-      <Label layoutX="90.0" layoutY="181.0" text="图书编号：" />
-      <Label layoutX="66.0" layoutY="226.0" text="借阅起始日期：" />
-      <Label layoutX="66.0" layoutY="264.0" text="借阅结束日期：" />
-      <Button fx:id="confirm" layoutX="200.0" layoutY="316.0" mnemonicParsing="false" onAction="#confirm" prefHeight="44.0" prefWidth="84.0" text="确定" />
-      <Button fx:id="cancel" layoutX="339.0" layoutY="316.0" mnemonicParsing="false" onAction="#cancel" prefHeight="44.0" prefWidth="84.0" text="取消" />
-      <TextField fx:id="username" editable="false" layoutX="150.0" layoutY="116.0" />
-      <TextField fx:id="b_bookName" editable="false" layoutX="150.0" layoutY="147.0" />
-      <TextField fx:id="b_bookId" editable="false" layoutX="150.0" layoutY="177.0" />
-      <TextField fx:id="b_startDate" editable="false" layoutX="150.0" layoutY="222.0" />
-      <TextField fx:id="b_endDate" editable="false" layoutX="150.0" layoutY="260.0" />
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18"
+            fx:controller="com.library.library.ConfirmBorrow">
+    <children>
+        <Label alignment="CENTER" layoutX="177.0" layoutY="24.0" prefHeight="72.0" prefWidth="246.0" text="确认借阅"
+               textAlignment="CENTER">
+            <font>
+                <Font name="Microsoft YaHei Bold" size="30.0"/>
+            </font>
+        </Label>
+        <Label layoutX="102.0" layoutY="120.0" text="借阅人："/>
+        <Label layoutX="90.0" layoutY="151.0" text="借阅书名："/>
+        <Label layoutX="90.0" layoutY="181.0" text="图书编号："/>
+        <Label layoutX="66.0" layoutY="226.0" text="借阅起始日期："/>
+        <Label layoutX="66.0" layoutY="264.0" text="借阅结束日期："/>
+        <Button fx:id="confirm" layoutX="200.0" layoutY="316.0" mnemonicParsing="false" onAction="#confirm"
+                prefHeight="44.0" prefWidth="84.0" text="确定"/>
+        <Button fx:id="cancel" layoutX="339.0" layoutY="316.0" mnemonicParsing="false" onAction="#cancel"
+                prefHeight="44.0" prefWidth="84.0" text="取消"/>
+        <TextField fx:id="username" editable="false" layoutX="150.0" layoutY="116.0"/>
+        <TextField fx:id="b_bookName" editable="false" layoutX="150.0" layoutY="147.0"/>
+        <TextField fx:id="b_bookId" editable="false" layoutX="150.0" layoutY="177.0"/>
+        <TextField fx:id="b_startDate" editable="false" layoutX="150.0" layoutY="222.0"/>
+        <TextField fx:id="b_endDate" editable="false" layoutX="150.0" layoutY="260.0"/>
+    </children>
 </AnchorPane>

@@ -16,6 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory
 import util.*
 import java.sql.Connection
 import java.sql.ResultSet
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ReturnBook {
     @FXML
@@ -62,6 +64,9 @@ class ReturnBook {
     private lateinit var conn: Connection
     private val dbutil = Dbutil()
     private val bookdao = BookDao()
+    private val nowTime = LocalDateTime.now()
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    val formatted = nowTime.format(formatter)
 
     @FXML
     fun initialize() {
@@ -135,17 +140,19 @@ class ReturnBook {
         val id = s_no.text
         val bookId = s_bookIDTxt.text
         val bookName = s_bookNameTxt.text
-        if(StringUtil.isEmpty(id) || StringUtil.isEmpty(bookId) || StringUtil.isEmpty(bookName)){
+        if (StringUtil.isEmpty(id) || StringUtil.isEmpty(bookId) || StringUtil.isEmpty(bookName)) {
             AlertUtil.showError("错误", "错误", "请重新选择")
             return
         }
-        val i=AlertUtil.showConfirm("确认", "确认归还下列图书吗？", "编号："+id+"\r\n"+"图书编号："+bookId+"\r\n"+"图书名称："+bookName)
-        if(i==1)
-        {
-            conn=getConnection()
-            val n=bookdao.returnBook(conn,id)
-            if(n>0)
-            {
+        val i = AlertUtil.showConfirm(
+            "确认",
+            "确认归还下列图书吗？",
+            "编号：" + id + "\r\n" + "图书编号：" + bookId + "\r\n" + "图书名称：" + bookName
+        )
+        if (i == 1) {
+            conn = getConnection()
+            val n = bookdao.returnBook(conn, id, formatted)
+            if (n > 0) {
                 AlertUtil.showAlert("提示", "提示", "归还成功")
             }
             reset(null)
@@ -159,7 +166,7 @@ class ReturnBook {
         conn = getConnection()
         try {
             val book = Book(null, null, null)
-            val rs: ResultSet = bookdao.list2(conn, book)
+            val rs: ResultSet = bookdao.list3(conn, book)
             var tableview: Tableview
             while (rs.next()) {
                 tableview = Tableview(
@@ -185,7 +192,7 @@ class ReturnBook {
         return TableviewList
     }
 
-    fun getTableviewList(book: Book?): ObservableList<Tableview>? {
+    fun getTableviewList(book: Book): ObservableList<Tableview>? {
         val TableviewList = FXCollections.observableArrayList<Tableview>()
         conn = getConnection()
         try {
@@ -236,7 +243,7 @@ class ReturnBook {
         queryTable.items = list
     }
 
-    fun showTableData(book: Book?) {
+    fun showTableData(book: Book) {
         val list = getTableviewList(book)
         no.cellValueFactory = PropertyValueFactory("ID")
         bookId.cellValueFactory = PropertyValueFactory("book_ID")

@@ -49,8 +49,8 @@ public class Tableview {
     public Tableview(String ID, String book_ID, String bookName, String start_Time, String end_Time, String appointment_Time, String isReturned) {
         this.ID = ID;
         this.Book_ID = book_ID;
-        this. BookName = bookName;
-        this. Start_Time = start_Time;
+        this.BookName = bookName;
+        this.Start_Time = start_Time;
         this.End_Time = end_Time;
         this.Appointment_Time = appointment_Time;
         this.isReturned = isReturned;

@@ -234,7 +234,7 @@ public class BorrowBook {
         BookType bookType = this.s_bookTypeJcb.getSelectionModel().getSelectedItem();
         int bookTypeId = bookType.getId();
         if (StringUtil.isEmpty(bookName) && StringUtil.isEmpty(author) && bookTypeId == -1 && StringUtil.isEmpty(s_idTxt.getText())) {
-            AlertUtil.showWarning("提示","提示","请输入查询条件");
+            AlertUtil.showWarning("提示", "提示", "请输入查询条件");
         }
         if (StringUtil.isNotEmpty(s_idTxt.getText())) {
             int bookId = Integer.parseInt(s_idTxt.getText());
@@ -258,7 +258,7 @@ public class BorrowBook {
         BookType bookType = this.s_bookTypeJcb.getSelectionModel().getSelectedItem();
         int bookTypeId = bookType.getId();
         if (StringUtil.isEmpty(bookName) || StringUtil.isEmpty(author) || bookTypeId == -1 || StringUtil.isEmpty(s_idTxt.getText())) {
-            AlertUtil.showError("错误","错误","请重新选择");
+            AlertUtil.showError("错误", "错误", "请重新选择");
         }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmBorrow.fxml"));
         Parent parent = loader.load();

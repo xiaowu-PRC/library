@@ -39,45 +39,45 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+
 /**
  * @author LeeWyatt
  * QQ: 9670453
  * QQ群: 518914410
- *
  */
 public class SvgUtil {
 
-    public static ArrayList<PathInfo> parseSvg(String content){
-        ArrayList<PathInfo> list=new ArrayList<>();
-        DocumentBuilderFactory dbf=DocumentBuilderFactory.newInstance();
+    public static ArrayList<PathInfo> parseSvg(String content) {
+        ArrayList<PathInfo> list = new ArrayList<>();
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
-        DocumentBuilder db=null;
-        Document dom=null;
+        DocumentBuilder db = null;
+        Document dom = null;
 
         try {
-            StringReader sr=new StringReader(content);
-            InputSource is=new InputSource(sr);
+            StringReader sr = new StringReader(content);
+            InputSource is = new InputSource(sr);
             //设置不验证
             dbf.setValidating(false);
-            db=dbf.newDocumentBuilder();
+            db = dbf.newDocumentBuilder();
             //忽略DTD文档类型定义验证
             db.setEntityResolver(new IgnoreDTDEntityResolver());
-            dom=db.parse(is);
+            dom = db.parse(is);
             Element item = dom.getDocumentElement();
             NodeList paths = dom.getElementsByTagName("path");
             for (int i = 0; i < paths.getLength(); i++) {
-                Node node= paths.item(i);
+                Node node = paths.item(i);
                 Element element = (Element) node;
-                PathInfo info=new PathInfo();
-                String pathD=element.getAttribute("d");
+                PathInfo info = new PathInfo();
+                String pathD = element.getAttribute("d");
                 //info.setPathD(ratePath(pathD,rate));
                 info.setPathD(pathD);
                 String pathFill = element.getAttribute("fill");
-                info.setPathFill(pathFill==""?"#000000":pathFill);
+                info.setPathFill(pathFill == "" ? "#000000" : pathFill);
                 String pathID = element.getAttribute("p-id");
                 //如果不存在p-id,就设置p-id
-                pathID=pathID.trim().isEmpty()?String.valueOf(i):pathID;
-                info.setPathId("p-id"+pathID);
+                pathID = pathID.trim().isEmpty() ? String.valueOf(i) : pathID;
+                info.setPathId("p-id" + pathID);
                 list.add(info);
             }
         } catch (ParserConfigurationException e) {

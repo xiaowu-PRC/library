@@ -79,15 +79,14 @@ public class ConfirmBorrow {
                 AlertUtil.showAlert("借阅成功", "提示", "借阅成功");
                 Stage stage = (Stage) confirm.getScene().getWindow();
                 stage.close();
-            }
-            else {
+            } else {
                 AlertUtil.showError("借阅失败", "提示", "借阅失败");
                 Stage stage = (Stage) confirm.getScene().getWindow();
                 stage.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             try {
                 dbutil.close(conn);
             } catch (Exception e) {

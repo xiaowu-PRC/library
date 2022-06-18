@@ -32,7 +32,7 @@ public class BookTypeAdd {
     void TypeAdd(ActionEvent event) {
         String bookTypeName = this.typetxt.getText();
         String bookTypeDesc = this.desctxt.getText();
-        if(StringUtil.isEmpty(bookTypeName)){
+        if (StringUtil.isEmpty(bookTypeName)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("图书类型名称不能为空！");
             alert.show();
@@ -41,17 +41,14 @@ public class BookTypeAdd {
         BookType bookType = new BookType(bookTypeName, bookTypeDesc);
         Connection conn = null;
         try {
-            conn=dbutil.getConnection();
-            int n=booktypedao.add(conn,bookType);
-            if(n==1)
-            {
+            conn = dbutil.getConnection();
+            int n = booktypedao.add(conn, bookType);
+            if (n == 1) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("添加成功！");
                 alert.show();
                 this.reset();
-            }
-            else
-            {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("添加失败！");
                 alert.show();

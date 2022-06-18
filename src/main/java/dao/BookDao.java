@@ -1,96 +1,120 @@
-package dao;
+package dao
 
-import util.Book;
-import util.StringUtil;
+import util.Book
+import util.StringUtil
+import java.sql.Connection
+import java.sql.ResultSet
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-public class BookDao {
-    public int add(Connection conn, Book book) throws Exception {
-        String sql = "insert into book values(null,?,?,?,?,?,?,?,?)";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, book.getBookName());
-        pstmt.setString(2, book.getAuthor());
-        pstmt.setString(3, book.getSex());
-        pstmt.setFloat(4, book.getPrice());
-        pstmt.setInt(5, book.getBookTypeId());
-        pstmt.setString(6, book.getBookDesc());
-        pstmt.setString(7, book.getTotal());
-        pstmt.setString(8, book.getRemainder());
-        return pstmt.executeUpdate();
+class BookDao {
+    @Throws(Exception::class)
+    fun add(conn: Connection, book: Book): Int {
+        val sql = "insert into book values(null,?,?,?,?,?,?,?,?)"
+        val pstmt = conn.prepareStatement(sql)
+        pstmt.setString(1, book.bookName)
+        pstmt.setString(2, book.author)
+        pstmt.setString(3, book.sex)
+        pstmt.setFloat(4, book.price)
+        pstmt.setInt(5, book.bookTypeId)
+        pstmt.setString(6, book.bookDesc)
+        pstmt.setString(7, book.total)
+        pstmt.setString(8, book.remainder)
+        return pstmt.executeUpdate()
     }
 
-    public ResultSet list(Connection conn, Book book) throws Exception {
-        StringBuffer sb = new StringBuffer("select * from book b,bookType bt where b.bookTypeId=bt.id");
-        if (StringUtil.isNotEmpty(book.getBookName())) {
-            sb.append(" and b.bookName like '%" + book.getBookName() + "%'");
+    @Throws(Exception::class)
+    fun list(conn: Connection, book: Book): ResultSet {
+        val sb = StringBuffer("select * from book b,bookType bt where b.bookTypeId=bt.id")
+        if (StringUtil.isNotEmpty(book.bookName)) {
+            sb.append(" and b.bookName like '%" + book.bookName + "%'")
         }
-        if (StringUtil.isNotEmpty(book.getAuthor())) {
-            sb.append(" and b.author like '%" + book.getAuthor() + "%'");
+        if (StringUtil.isNotEmpty(book.author)) {
+            sb.append(" and b.author like '%" + book.author + "%'")
         }
-        if (book.getBookTypeId() != null && book.getBookTypeId() != -1) {
-            sb.append(" and b.bookTypeId=" + book.getBookTypeId());
+        if (book.bookTypeId != null && book.bookTypeId != -1) {
+            sb.append(" and b.bookTypeId=" + book.bookTypeId)
         }
-        if (book.getId() != null && book.getId() != 0) {
-            sb.append(" and b.id=" + book.getId());
+        if (book.id != null && book.id != 0) {
+            sb.append(" and b.id=" + book.id)
         }
-        PreparedStatement pstmt = conn.prepareStatement(sb.toString());
-        return pstmt.executeQuery();
+        val pstmt = conn.prepareStatement(sb.toString())
+        return pstmt.executeQuery()
     }
 
-    public ResultSet list2(Connection conn, Book book) throws Exception {
-        StringBuffer sb = new StringBuffer("select ba.ID,Book_ID,bookName,Start_Time,End_Time,Appointment_Time,isReturned from book_appointment ba,user u,book b where ba.User_ID=u.id and ba.Book_ID=b.id");
-        if (StringUtil.isNotEmpty(book.getB_ID())) {
-            sb.append(" and ba.ID like '%" + book.getB_ID() + "%'");
+    @Throws(Exception::class)
+    fun list2(conn: Connection, book: Book): ResultSet {
+        val sb =
+            StringBuffer("select ba.ID,Book_ID,bookName,Start_Time,End_Time,Appointment_Time,isReturned from book_appointment ba,user u,book b where ba.User_ID=u.id and ba.Book_ID=b.id")
+        if (StringUtil.isNotEmpty(book.b_ID)) {
+            sb.append(" and ba.ID like '%" + book.b_ID + "%'")
         }
-        if (StringUtil.isNotEmpty(book.getId().toString())&&book.getId() != null && book.getId() != 0) {
-            sb.append(" and b.ID=" + book.getId());
+        if (StringUtil.isNotEmpty(book.id.toString()) && book.id != null && book.id != 0) {
+            sb.append(" and b.ID=" + book.id)
         }
-        if (StringUtil.isNotEmpty(book.getBookName())) {
-            sb.append(" and b.bookName like '%" + book.getBookName() + "%'");
+        if (StringUtil.isNotEmpty(book.bookName)) {
+            sb.append(" and b.bookName like '%" + book.bookName + "%'")
         }
-        sb.append(" ORDER BY Appointment_Time ASC");
-        PreparedStatement pstmt = conn.prepareStatement(sb.toString());
-        return pstmt.executeQuery();
+        sb.append(" ORDER BY ID ASC")
+        val pstmt = conn.prepareStatement(sb.toString())
+        return pstmt.executeQuery()
     }
 
-    public int delete(Connection conn, String id) throws Exception {
-        String sql = "delete from book where id=?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, id);
-        return pstmt.executeUpdate();
+    @Throws(Exception::class)
+    fun list3(conn: Connection, book: Book): ResultSet {
+        val sql =
+            "select * from book_appointment ba,user u,book b where ba.User_ID=u.id and ba.Book_ID=b.id and isReturned=0 ORDER BY End_Time ASC"
+        val pstmt = conn.prepareStatement(sql)
+        return pstmt.executeQuery()
     }
 
-    public int update(Connection conn, Book book) throws Exception {
-        String sql = "update book set bookName=?,author=?,sex=?,price=?,bookDesc=?,bookTypeId=?,total=?,remainder=? where id=?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, book.getBookName());
-        pstmt.setString(2, book.getAuthor());
-        pstmt.setString(3, book.getSex());
-        pstmt.setFloat(4, book.getPrice());
-        pstmt.setString(5, book.getBookDesc());
-        pstmt.setInt(6, book.getBookTypeId());
-        pstmt.setString(7, book.getTotal());
-        pstmt.setString(8, book.getRemainder());
-        pstmt.setInt(9, book.getId());
-
-        return pstmt.executeUpdate();
+    @Throws(Exception::class)
+    fun delete(conn: Connection, id: String?): Int {
+        val sql = "delete from book where id=?"
+        val pstmt = conn.prepareStatement(sql)
+        pstmt.setString(1, id)
+        return pstmt.executeUpdate()
     }
 
-    public boolean existBookTypeId(Connection conn, String bookTypeId) throws Exception {
-        String sql = "select * from book where bookTypeId=?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, bookTypeId);
-        ResultSet rs = pstmt.executeQuery();
-        return rs.next();
+    @Throws(Exception::class)
+    fun update(conn: Connection, book: Book): Int {
+        val sql =
+            "update book set bookName=?,author=?,sex=?,price=?,bookDesc=?,bookTypeId=?,total=?,remainder=? where id=?"
+        val pstmt = conn.prepareStatement(sql)
+        pstmt.setString(1, book.bookName)
+        pstmt.setString(2, book.author)
+        pstmt.setString(3, book.sex)
+        pstmt.setFloat(4, book.price)
+        pstmt.setString(5, book.bookDesc)
+        pstmt.setInt(6, book.bookTypeId)
+        pstmt.setString(7, book.total)
+        pstmt.setString(8, book.remainder)
+        pstmt.setInt(9, book.id)
+        return pstmt.executeUpdate()
     }
 
-    public int returnBook(Connection conn,String id)throws Exception{
-        String sql="update book_appointment set isReturned=1 where ID=?";
-        PreparedStatement pstmt=conn.prepareStatement(sql);
-        pstmt.setString(1,id);
-        return pstmt.executeUpdate();
+    @Throws(Exception::class)
+    fun existBookTypeId(conn: Connection, bookTypeId: String?): Boolean {
+        val sql = "select * from book where bookTypeId=?"
+        val pstmt = conn.prepareStatement(sql)
+        pstmt.setString(1, bookTypeId)
+        val rs = pstmt.executeQuery()
+        return rs.next()
+    }
+
+    @Throws(Exception::class)
+    fun returnBook(conn: Connection, id: String?, nowTime: String?): Int {
+        val sql = "update book_appointment set isReturned=1,Return_Time=? where ID=?"
+        val pstmt = conn.prepareStatement(sql)
+        pstmt.setString(1, nowTime)
+        pstmt.setString(2, id)
+        return pstmt.executeUpdate()
+    }
+
+    @Throws(Exception::class)
+    fun renewal(conn: Connection, id: String?, day: String?): Int {
+        val sql = "update book_appointment set End_Time=? where ID=?"
+        val pstmt = conn.prepareStatement(sql)
+        pstmt.setString(1, day)
+        pstmt.setString(2, id)
+        return pstmt.executeUpdate()
     }
 }

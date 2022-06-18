@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.leewyatt.rxcontrols.controls.RXTextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -9,26 +10,31 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="622.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.library.BookAddInterFrm">
-   <children>
-      <Label layoutX="79.0" layoutY="79.0" text="图书名称：" />
-      <TextField fx:id="bookNameTxt" layoutX="140.0" layoutY="75.0" />
-      <Label layoutX="454.0" layoutY="79.0" text="图书作者：" />
-      <Label layoutX="79.0" layoutY="160.0" text="作者性别：" />
-      <TextField fx:id="authorTxt" layoutX="514.0" layoutY="75.0" />
-      <JFXRadioButton fx:id="manJrb" layoutX="139.0" layoutY="160.0" selected="true" text="男">
-         <toggleGroup>
-            <ToggleGroup fx:id="sex" />
-         </toggleGroup>
-      </JFXRadioButton>
-      <JFXRadioButton fx:id="femaleJrb" layoutX="201.0" layoutY="160.0" text="女" toggleGroup="$sex" />
-      <Label layoutX="454.0" layoutY="160.0" text="图书价格：" />
-      <TextField fx:id="priceTxt" layoutX="514.0" layoutY="156.0" />
-      <Label layoutX="79.0" layoutY="226.0" text="图书类别：" />
-      <JFXComboBox fx:id="bookTypeJcb" layoutX="140.0" layoutY="222.0" prefHeight="23.0" prefWidth="161.0" />
-      <Label layoutX="79.0" layoutY="311.0" text="图书描述：" />
-      <TextArea fx:id="bookDescTxt" layoutX="141.0" layoutY="311.0" prefHeight="226.0" prefWidth="547.0" />
-      <Button fx:id="add" layoutX="287.0" layoutY="556.0" mnemonicParsing="false" onAction="#BookAdd" prefHeight="37.0" prefWidth="73.0" text="添加" />
-      <Button fx:id="reset" layoutX="448.0" layoutY="556.0" mnemonicParsing="false" onAction="#resetValue" prefHeight="37.0" prefWidth="73.0" text="重置" />
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="622.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/18"
+            fx:controller="com.library.library.BookAddInterFrm">
+    <children>
+        <Label layoutX="79.0" layoutY="79.0" text="图书名称："/>
+        <TextField fx:id="bookNameTxt" layoutX="140.0" layoutY="75.0"/>
+        <Label layoutX="454.0" layoutY="79.0" text="图书作者："/>
+        <Label layoutX="79.0" layoutY="134.0" text="作者性别："/>
+        <TextField fx:id="authorTxt" layoutX="514.0" layoutY="75.0"/>
+        <JFXRadioButton fx:id="manJrb" layoutX="139.0" layoutY="134.0" selected="true" text="男">
+            <toggleGroup>
+                <ToggleGroup fx:id="sex"/>
+            </toggleGroup>
+        </JFXRadioButton>
+        <JFXRadioButton fx:id="femaleJrb" layoutX="201.0" layoutY="134.0" text="女" toggleGroup="$sex"/>
+        <Label layoutX="454.0" layoutY="134.0" text="图书价格："/>
+        <TextField fx:id="priceTxt" layoutX="514.0" layoutY="130.0"/>
+        <Label layoutX="79.0" layoutY="226.0" text="图书类别："/>
+        <JFXComboBox fx:id="bookTypeJcb" layoutX="140.0" layoutY="222.0" prefHeight="23.0" prefWidth="161.0"/>
+        <Label layoutX="79.0" layoutY="311.0" text="图书描述："/>
+        <TextArea fx:id="bookDescTxt" layoutX="141.0" layoutY="311.0" prefHeight="226.0" prefWidth="547.0"/>
+        <Button fx:id="add" layoutX="287.0" layoutY="556.0" mnemonicParsing="false" onAction="#BookAdd"
+                prefHeight="37.0" prefWidth="73.0" text="添加"/>
+        <Button fx:id="reset" layoutX="448.0" layoutY="556.0" mnemonicParsing="false" onAction="#resetValue"
+                prefHeight="37.0" prefWidth="73.0" text="重置"/>
+        <Label layoutX="79.0" layoutY="180.0" text="总数："/>
+        <RXTextField fx:id="totalTxt" layoutX="140.0" layoutY="176.0" onClickButton="#deleteText"/>
+    </children>
 </AnchorPane>

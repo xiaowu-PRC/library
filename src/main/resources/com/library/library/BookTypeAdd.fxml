@@ -6,13 +6,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.library.BookTypeAdd">
-   <children>
-      <Label layoutX="111.0" layoutY="96.0" prefHeight="50.0" prefWidth="86.0" text="图书类别名称：" />
-      <Label layoutX="111.0" layoutY="160.0" prefHeight="15.0" prefWidth="86.0" text="图书类别描述：" />
-      <TextField fx:id="typetxt" layoutX="200.0" layoutY="110.0" prefHeight="23.0" prefWidth="271.0" />
-      <TextArea fx:id="desctxt" layoutX="200.0" layoutY="160.0" prefHeight="129.0" prefWidth="271.0" />
-      <Button fx:id="BookTypeAdd" layoutX="221.0" layoutY="313.0" mnemonicParsing="false" onAction="#TypeAdd" prefHeight="40.0" prefWidth="56.0" text="添加" />
-      <Button fx:id="reset" layoutX="352.0" layoutY="313.0" mnemonicParsing="false" onAction="#reset" prefHeight="40.0" prefWidth="56.0" text="重置" />
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18"
+            fx:controller="com.library.library.BookTypeAdd">
+    <children>
+        <Label layoutX="111.0" layoutY="96.0" prefHeight="50.0" prefWidth="86.0" text="图书类别名称："/>
+        <Label layoutX="111.0" layoutY="160.0" prefHeight="15.0" prefWidth="86.0" text="图书类别描述："/>
+        <TextField fx:id="typetxt" layoutX="200.0" layoutY="110.0" prefHeight="23.0" prefWidth="271.0"/>
+        <TextArea fx:id="desctxt" layoutX="200.0" layoutY="160.0" prefHeight="129.0" prefWidth="271.0"/>
+        <Button fx:id="BookTypeAdd" layoutX="221.0" layoutY="313.0" mnemonicParsing="false" onAction="#TypeAdd"
+                prefHeight="40.0" prefWidth="56.0" text="添加"/>
+        <Button fx:id="reset" layoutX="352.0" layoutY="313.0" mnemonicParsing="false" onAction="#reset"
+                prefHeight="40.0" prefWidth="56.0" text="重置"/>
+    </children>
 </AnchorPane>

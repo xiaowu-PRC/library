@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.legacy.MFXLegacyTableView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="662.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.library.Query">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="662.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/18"
+            fx:controller="com.library.library.Query">
    <children>
-      <MFXLegacyTableView fx:id="queryTable" layoutX="32.0" layoutY="14.0" prefHeight="400.0" prefWidth="826.0" style="-fx-alignment: CENTER;">
+      <MFXLegacyTableView fx:id="queryTable" layoutX="32.0" layoutY="14.0" prefHeight="445.0" prefWidth="826.0"
+                          style="-fx-alignment: CENTER;">
          <columns>
-            <TableColumn fx:id="no" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="编号" />
-            <TableColumn fx:id="bookId" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="图书编号" />
-            <TableColumn fx:id="bookName" editable="false" prefWidth="150.0" style="-fx-alignment: CENTER;" text="图书名称" />
-            <TableColumn fx:id="startTime" editable="false" prefWidth="121.0" style="-fx-alignment: CENTER;" text="借阅开始日期" />
-            <TableColumn fx:id="endTime" editable="false" prefWidth="106.0" style="-fx-alignment: CENTER;" text="借阅结束日期" />
-            <TableColumn fx:id="appointmentTime" editable="false" prefWidth="150.0" style="-fx-alignment: CENTER;" text="借阅时间" />
-            <TableColumn fx:id="isReturned" editable="false" prefWidth="146.0" style="-fx-alignment: CENTER;" text="归还情况" />
+            <TableColumn fx:id="no" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="编号"/>
+            <TableColumn fx:id="bookId" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;"
+                         text="图书编号"/>
+            <TableColumn fx:id="bookName" editable="false" prefWidth="150.0" style="-fx-alignment: CENTER;"
+                         text="图书名称"/>
+            <TableColumn fx:id="startTime" editable="false" prefWidth="121.0" style="-fx-alignment: CENTER;"
+                         text="借阅开始日期"/>
+            <TableColumn fx:id="endTime" editable="false" prefWidth="106.0" style="-fx-alignment: CENTER;"
+                         text="借阅结束日期"/>
+            <TableColumn fx:id="appointmentTime" editable="false" prefWidth="150.0" style="-fx-alignment: CENTER;"
+                         text="借阅时间"/>
+            <TableColumn fx:id="isReturned" editable="false" prefWidth="146.0" style="-fx-alignment: CENTER;"
+                         text="归还情况"/>
          </columns>
       </MFXLegacyTableView>
+      <Button fx:id="renewal" layoutX="383.0" layoutY="555.0" mnemonicParsing="false" onAction="#renewal"
+              prefHeight="71.0" prefWidth="124.0" text="延长借阅"/>
+      <Label layoutX="291.0" layoutY="506.0" text="注：请先选择项目后再点击延长借阅按钮，最多延长7天。"
+             underline="true"/>
    </children>
 </AnchorPane>

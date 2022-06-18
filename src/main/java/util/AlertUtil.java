@@ -1,45 +1,47 @@
-package util;
+package util
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert
+import javafx.scene.control.ButtonType
 
-import java.util.Optional;
-
-public class AlertUtil {
-    public static void showAlert(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
+object AlertUtil {
+    @JvmStatic
+    fun showAlert(title: String?, header: String?, content: String?) {
+        val alert = Alert(Alert.AlertType.INFORMATION)
+        alert.title = title
+        alert.headerText = header
+        alert.contentText = content
+        alert.showAndWait()
     }
 
-    public static void showWarning(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
+    @JvmStatic
+    fun showWarning(title: String?, header: String?, content: String?) {
+        val alert = Alert(Alert.AlertType.WARNING)
+        alert.title = title
+        alert.headerText = header
+        alert.contentText = content
+        alert.showAndWait()
     }
 
-    public static void showError(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
+    @JvmStatic
+    fun showError(title: String?, header: String?, content: String?) {
+        val alert = Alert(Alert.AlertType.ERROR)
+        alert.title = title
+        alert.headerText = header
+        alert.contentText = content
+        alert.showAndWait()
     }
 
-    public static int showConfirm(String title, String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        Optional<ButtonType> result = alert.showAndWait();
-        int i = 0;
+    @JvmStatic
+    fun showConfirm(title: String?, header: String?, content: String?): Int {
+        val alert = Alert(Alert.AlertType.CONFIRMATION)
+        alert.title = title
+        alert.headerText = header
+        alert.contentText = content
+        val result = alert.showAndWait()
+        var i = 0
         if (result.orElse(null) == ButtonType.OK) {
-            i = 1;
+            i = 1
         }
-        return i;
+        return i
     }
 }

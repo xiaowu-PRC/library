@@ -5,33 +5,38 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.library.MainFrameController">
-   <top>
-      <MenuBar fx:id="bar" BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="基本数据维护">
-               <items>
-                  <Menu mnemonicParsing="false" text="图书类别管理">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18"
+            fx:controller="com.library.library.MainFrameController">
+    <top>
+        <MenuBar fx:id="bar" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="基本数据维护">
                     <items>
-                        <MenuItem fx:id="TypeAdd" mnemonicParsing="false" onAction="#add" text="图书类别添加" />
-                      <MenuItem fx:id="maintenance" mnemonicParsing="false" onAction="#maintenance" text="图书类别维护" />
+                        <Menu mnemonicParsing="false" text="图书类别管理">
+                            <items>
+                                <MenuItem fx:id="TypeAdd" mnemonicParsing="false" onAction="#add" text="图书类别添加"/>
+                                <MenuItem fx:id="maintenance" mnemonicParsing="false" onAction="#maintenance"
+                                          text="图书类别维护"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="图书管理">
+                            <items>
+                                <MenuItem fx:id="bookAdd" mnemonicParsing="false" onAction="#bookAdd" text="图书添加"/>
+                                <MenuItem fx:id="BookManage" mnemonicParsing="false" onAction="#BookManage"
+                                          text="图书维护"/>
+                            </items>
+                        </Menu>
+                        <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exit" text="安全退出"/>
                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="图书管理">
+                </Menu>
+                <Menu mnemonicParsing="false" text="关于我们">
                     <items>
-                      <MenuItem fx:id="bookAdd" mnemonicParsing="false" onAction="#bookAdd" text="图书添加" />
-                        <MenuItem fx:id="BookManage" mnemonicParsing="false" onAction="#BookManage" text="图书维护" />
+                        <MenuItem fx:id="aboutus" mnemonicParsing="false" onAction="#about" text="版权信息©"/>
                     </items>
-                  </Menu>
-                  <MenuItem mnemonicParsing="false" text="安全退出" />
-               </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="关于我们">
-            <items>
-                  <MenuItem fx:id="aboutus" mnemonicParsing="false" onAction="#about" text="版权信息©" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
 </BorderPane>

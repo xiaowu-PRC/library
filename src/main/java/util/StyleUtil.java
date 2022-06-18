@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
  * @author LeeWyatt
  * QQ: 9670453
  * QQ群: 518914410
- *
  */
 public class StyleUtil {
     private StyleUtil() {
@@ -81,7 +80,7 @@ public class StyleUtil {
                 removeSheets(parent, sheet);
             }
         }
-        addSheets(parent,addSheets);
+        addSheets(parent, addSheets);
     }
 
     /**
@@ -139,7 +138,7 @@ public class StyleUtil {
                 removeSheets(scene, sheet);
             }
         }
-        addSheets(scene,addSheets);
+        addSheets(scene, addSheets);
     }
 
     public static void addSheets(Scene scene, String... sheets) {
@@ -192,7 +191,7 @@ public class StyleUtil {
                 removeClass(node, clazzName);
             }
         }
-        addClass(node,addClassNames);
+        addClass(node, addClassNames);
     }
 
 

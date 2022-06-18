@@ -4,6 +4,25 @@ public class User {
     private String password;
     private String username;
     private int id;
+    private int isAdmin;
+
+    public User() {
+        super();
+    }
+
+    public User(String username, String password) {
+        super();
+        this.username = username;
+        this.password = password;
+    }
+
+    public int getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 
     public int getId() {
         return id;
@@ -27,15 +46,5 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public User() {
-        super();
-    }
-
-    public User(String username, String password) {
-        super();
-        this.username = username;
-        this.password = password;
     }
 }

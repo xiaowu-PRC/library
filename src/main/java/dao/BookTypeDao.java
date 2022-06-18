@@ -1,43 +1,44 @@
-package dao;
+package dao
 
-import util.*;
+import util.BookType
+import java.sql.Connection
+import java.sql.ResultSet
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
-public class BookTypeDao {
-    public int add(Connection conn, BookType bookType) throws Exception {
-        String sql = "insert into booktype values(null,?, ?)";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, bookType.getBookTypeName());
-        pstmt.setString(2, bookType.getBookTypeDesc());
-        return pstmt.executeUpdate();
+class BookTypeDao {
+    @Throws(Exception::class)
+    fun add(conn: Connection, bookType: BookType): Int {
+        val sql = "insert into booktype values(null,?, ?)"
+        val pstmt = conn.prepareStatement(sql)
+        pstmt.setString(1, bookType.bookTypeName)
+        pstmt.setString(2, bookType.bookTypeDesc)
+        return pstmt.executeUpdate()
     }
 
-    public ResultSet list(Connection conn, BookType bookType) throws Exception {
-        String sql = "select * from booktype";
-        if (bookType.getBookTypeName() != null) {
-            sql += " where bookTypeName like '%" + bookType.getBookTypeName() + "%'";
+    @Throws(Exception::class)
+    fun list(conn: Connection, bookType: BookType): ResultSet {
+        var sql = "select * from booktype"
+        if (bookType.bookTypeName != null) {
+            sql += " where bookTypeName like '%" + bookType.bookTypeName + "%'"
         }
-        Statement stmt = conn.createStatement();
-        return stmt.executeQuery(sql);
+        val stmt = conn.createStatement()
+        return stmt.executeQuery(sql)
     }
 
-    public int delete(Connection conn, String id) throws Exception {
-        String sql = "delete from booktype where id = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, id);
-        return pstmt.executeUpdate();
+    @Throws(Exception::class)
+    fun delete(conn: Connection, id: String?): Int {
+        val sql = "delete from booktype where id = ?"
+        val pstmt = conn.prepareStatement(sql)
+        pstmt.setString(1, id)
+        return pstmt.executeUpdate()
     }
 
-    public int update(Connection conn, BookType bookType) throws Exception {
-        String sql = "update booktype set bookTypeName = ?, bookTypeDesc = ? where id = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, bookType.getBookTypeName());
-        pstmt.setString(2, bookType.getBookTypeDesc());
-        pstmt.setInt(3, bookType.getId());
-        return pstmt.executeUpdate();
+    @Throws(Exception::class)
+    fun update(conn: Connection, bookType: BookType): Int {
+        val sql = "update booktype set bookTypeName = ?, bookTypeDesc = ? where id = ?"
+        val pstmt = conn.prepareStatement(sql)
+        pstmt.setString(1, bookType.bookTypeName)
+        pstmt.setString(2, bookType.bookTypeDesc)
+        pstmt.setInt(3, bookType.id)
+        return pstmt.executeUpdate()
     }
 }

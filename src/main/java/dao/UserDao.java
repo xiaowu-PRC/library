@@ -1,25 +1,24 @@
-package dao;
+package dao
 
-import util.User;
+import util.User
+import java.sql.Connection
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-public class UserDao {
-    public User login(Connection conn, User user) throws Exception {
-        User resultUser = null;
-        String sql = "select * from user where username = ? and password = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, user.getUsername());
-        pstmt.setString(2, user.getPassword());
-        ResultSet rs = pstmt.executeQuery();
+class UserDao {
+    @Throws(Exception::class)
+    fun login(conn: Connection, user: User): User? {
+        var resultUser: User? = null
+        val sql = "select * from user where username = ? and password = ?"
+        val pstmt = conn.prepareStatement(sql)
+        pstmt.setString(1, user.username)
+        pstmt.setString(2, user.password)
+        val rs = pstmt.executeQuery()
         if (rs.next()) {
-            resultUser = new User();
-            resultUser.setId(rs.getInt("id"));
-            resultUser.setUsername(rs.getString("username"));
-            resultUser.setPassword(rs.getString("password"));
+            resultUser = User()
+            resultUser.id = rs.getInt("id")
+            resultUser.username = rs.getString("username")
+            resultUser.password = rs.getString("password")
+            resultUser.isAdmin = rs.getInt("isAdmin")
         }
-        return resultUser;
+        return resultUser
     }
 }
