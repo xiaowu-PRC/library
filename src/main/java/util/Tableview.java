@@ -28,6 +28,7 @@ public class Tableview {
         this.BookTypeName = bookTypeName;
     }
 
+
     public Tableview(String id, String bookName, String author, String sex, Float price, String bookDesc, String bookTypeName, String total, String remainder) {
         this.id = id;
         this.BookName = bookName;

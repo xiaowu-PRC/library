@@ -5,11 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainFrameController {
     @FXML
@@ -27,10 +27,20 @@ public class MainFrameController {
 
     @FXML
     private MenuItem BookManage;
+
+    @FXML
+    private MenuItem exit;
+    @FXML
+    private MenuItem userAdd;
+
+    @FXML
+    private MenuItem userManage;
+
+
     @FXML
     void about(ActionEvent event) {
         Stage thirdScene = new Stage();
-        Parent root = null;
+        Parent root;
         try {
             root = FXMLLoader.load(getClass().getResource("About.fxml"));
             thirdScene.setTitle("版权信息©");
@@ -44,13 +54,13 @@ public class MainFrameController {
     @FXML
     void bookAdd(ActionEvent event) {
         Stage newscene = new Stage();
-        Parent root = null;
+        Parent root;
         try {
             root = FXMLLoader.load(getClass().getResource("BookAddInterFrm.fxml"));
             newscene.setTitle("图书添加");
             newscene.setScene(new Scene(root));
             newscene.show();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -59,7 +69,7 @@ public class MainFrameController {
     @FXML
     void add(ActionEvent event) {
         Stage newscene = new Stage();
-        Parent root = null;
+        Parent root;
         try {
             root = FXMLLoader.load(getClass().getResource("BookTypeAdd.fxml"));
             newscene.setTitle("添加图书");
@@ -69,12 +79,13 @@ public class MainFrameController {
             e.printStackTrace();
         }
     }
+
     @FXML
     void maintenance(ActionEvent event) {
         Stage newscene = new Stage();
-        Parent root = null;
+        Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("ManageInterFrm.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ManageInterFrm.fxml")));
             newscene.setTitle("图书维护");
             newscene.setScene(new Scene(root));
             newscene.show();
@@ -84,11 +95,34 @@ public class MainFrameController {
     }
 
     @FXML
+    void exit(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("确认退出");
+        alert.setHeaderText("确认退出");
+        alert.setContentText("确认退出系统？");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK) {
+            Stage newStage = new Stage();
+            Parent root;
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Library.fxml")));
+                newStage.setTitle("图书馆管理系统");
+                newStage.setScene(new Scene(root));
+                newStage.show();
+                Stage stage = (Stage) bar.getScene().getWindow();
+                stage.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
     void BookManage(ActionEvent event) {
         Stage newscene = new Stage();
-        Parent root = null;
+        Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("BookManageInterFrm.fxml"));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("BookManageInterFrm.fxml")));
             newscene.setTitle("图书管理");
             newscene.setScene(new Scene(root));
             newscene.show();
@@ -97,4 +131,32 @@ public class MainFrameController {
         }
     }
 
+
+    @FXML
+    void userAdd(ActionEvent event) {
+        Stage newscene = new Stage();
+        Parent root;
+        try {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("UserAddInterFrm.fxml")));
+            newscene.setTitle("用户添加");
+            newscene.setScene(new Scene(root));
+            newscene.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void userManage(ActionEvent event) {
+        Stage newscene = new Stage();
+        Parent root;
+        try {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("UserManageInterFrm.fxml")));
+            newscene.setTitle("用户管理");
+            newscene.setScene(new Scene(root));
+            newscene.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

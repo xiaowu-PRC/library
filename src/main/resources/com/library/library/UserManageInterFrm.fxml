@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="767.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/18"
+            fx:controller="com.library.library.UserManageInterFrm">
+    <children>
+        <TableView fx:id="userTable" layoutX="19.0" layoutY="181.0" prefHeight="360.0" prefWidth="867.0">
+            <columns>
+                <TableColumn fx:id="no" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;" text="编号"/>
+                <TableColumn fx:id="c_userName" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;"
+                             text="用户名"/>
+                <TableColumn fx:id="c_password" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;"
+                             text="密码"/>
+                <TableColumn fx:id="c_sex" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;"
+                             text="性别"/>
+                <TableColumn fx:id="c_isAdmin" editable="false" prefWidth="75.0" style="-fx-alignment: CENTER;"
+                             text="管理员"/>
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

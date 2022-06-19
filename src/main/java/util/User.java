@@ -5,6 +5,18 @@ public class User {
     private String username;
     private int id;
     private int isAdmin;
+    private String sex;
+
+    public User(String username, String password, String sex, int isAdmin) {
+        this.username = username;
+        this.password = password;
+        this.sex = sex;
+        this.isAdmin = isAdmin;
+    }
+
+    public String getSex() {
+        return sex;
+    }
 
     public User() {
         super();
@@ -14,6 +26,10 @@ public class User {
         super();
         this.username = username;
         this.password = password;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public int getIsAdmin() {

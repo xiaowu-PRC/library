@@ -14,7 +14,6 @@ module com.library.library {
     requires java.desktop;
     requires rxcontrols;
     requires com.jfoenix;
-    requires com.almasb.fxgl.all;
     requires MaterialFX;
     requires kotlin.stdlib;
 
