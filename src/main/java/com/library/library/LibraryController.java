@@ -66,6 +66,7 @@ public class LibraryController {
                         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainFrm.fxml")));
                         thirdScene.setTitle("管理员主界面");
                         thirdScene.setScene(new Scene(root));
+                        thirdScene.setResizable(false);
                         thirdScene.show();
                         Stage stage = (Stage) login.getScene().getWindow();
                         stage.close();
@@ -81,6 +82,7 @@ public class LibraryController {
                         Stage thirdScene = new Stage();
                         Scene scene = new Scene(parent);
                         thirdScene.setTitle("主界面");
+                        thirdScene.setResizable(false);
                         thirdScene.setScene(scene);
                         thirdScene.show();
                         Stage stage = (Stage) login.getScene().getWindow();

@@ -3,6 +3,7 @@ module com.library.library {
     requires javafx.fxml;
     requires javafx.web;
     requires javafx.base;
+    requires javafx.swing;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;

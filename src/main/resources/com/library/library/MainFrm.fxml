@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18"
+            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18"
             fx:controller="com.library.library.MainFrameController">
     <top>
         <MenuBar fx:id="bar" BorderPane.alignment="CENTER">
@@ -26,6 +25,13 @@
                                 <MenuItem fx:id="bookAdd" mnemonicParsing="false" onAction="#bookAdd" text="图书添加"/>
                                 <MenuItem fx:id="BookManage" mnemonicParsing="false" onAction="#BookManage"
                                           text="图书维护"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="用户管理">
+                            <items>
+                                <MenuItem fx:id="userAdd" mnemonicParsing="false" onAction="#userAdd" text="用户添加"/>
+                                <MenuItem fx:id="userManage" mnemonicParsing="false" onAction="#userManage"
+                                          text="用户信息维护"/>
                             </items>
                         </Menu>
                         <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exit" text="安全退出"/>

@@ -9,6 +9,10 @@ public class BookType {
         super();
     }
 
+    public BookType(String bookTypeName) {
+        this.bookTypeName = bookTypeName;
+    }
+
     public BookType(String BookTypeName, String bookTypeDesc) {
         super();
         this.bookTypeName = BookTypeName;

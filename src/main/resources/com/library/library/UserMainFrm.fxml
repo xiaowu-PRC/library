@@ -2,12 +2,29 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="550.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/18"
             fx:controller="com.library.library.UserMainFrm">
     <children>
+        <MenuBar prefHeight="25.0" prefWidth="809.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="账户">
+                    <items>
+                        <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exit" text="退出登录"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="关于本系统">
+                    <items>
+                        <MenuItem fx:id="about" mnemonicParsing="false" onAction="#about" text="版权信息©"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
         <Label layoutX="200.0" layoutY="57.0" text="欢迎光临homo图书馆">
             <font>
                 <Font name="Microsoft YaHei Bold" size="41.0"/>

@@ -231,7 +231,7 @@ public class BookManageInterFrm {
             return;
         }
         Book book = new Book(Integer.parseInt(id), bookName, author, sex, Float.parseFloat(price), bookTypeId, bookDesc, total, remainder);
-        Connection conn = null;
+        Connection conn;
         conn = getConnection();
         try {
             int addNum = bookdao.update(conn, book);
@@ -268,7 +268,7 @@ public class BookManageInterFrm {
         }
         int result = AlertUtil.showConfirm("二次确认", "删除确认", "确定要删除吗？");
         if (result == 1) {
-            Connection conn = null;
+            Connection conn;
             conn = getConnection();
             try {
                 int delNum = bookdao.delete(conn, id);
@@ -295,7 +295,7 @@ public class BookManageInterFrm {
 
     public ObservableList<BookType> getBookTypeList(String type) {
         ObservableList<BookType> bookTypeList = FXCollections.observableArrayList();
-        BookType bookType = null;
+        BookType bookType;
         try {
             Connection conn = getConnection();
             ResultSet rs = booktypedao.list(conn, new BookType());

@@ -17,6 +17,7 @@ public class LibraryApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource("Library.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("图书馆管理系统");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

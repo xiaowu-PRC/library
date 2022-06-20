@@ -29,7 +29,8 @@
                 </TableView>
             </content>
         </ScrollPane>
-        <TitledPane layoutX="126.0" layoutY="405.0" prefHeight="241.0" prefWidth="665.0" text="表单操作">
+        <TitledPane fx:id="operPane" disable="true" layoutX="126.0" layoutY="405.0" prefHeight="241.0" prefWidth="665.0"
+                    text="表单操作">
             <content>
                 <AnchorPane prefHeight="217.0" prefWidth="566.0">
                     <children>

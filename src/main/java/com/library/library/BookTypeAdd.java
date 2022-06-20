@@ -3,10 +3,10 @@ package com.library.library;
 import dao.BookTypeDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import util.AlertUtil;
 import util.BookType;
 import util.Dbutil;
 import util.StringUtil;
@@ -33,25 +33,20 @@ public class BookTypeAdd {
         String bookTypeName = this.typetxt.getText();
         String bookTypeDesc = this.desctxt.getText();
         if (StringUtil.isEmpty(bookTypeName)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("图书类型名称不能为空！");
-            alert.show();
+            AlertUtil.showError("错误", "错误", "图书种类名称不能为空");
             return;
         }
         BookType bookType = new BookType(bookTypeName, bookTypeDesc);
-        Connection conn = null;
+        Connection conn;
         try {
             conn = dbutil.getConnection();
             int n = booktypedao.add(conn, bookType);
             if (n == 1) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("添加成功！");
-                alert.show();
+                AlertUtil.showAlert("提示", "提示", "添加成功");
                 this.reset();
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("添加失败！");
-                alert.show();
+                AlertUtil.showError("错误", "错误", "添加失败");
+                this.reset();
             }
         } catch (Exception e1) {
             e1.printStackTrace();

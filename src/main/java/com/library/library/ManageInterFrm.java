@@ -2,23 +2,16 @@ package com.library.library;
 
 import dao.BookDao;
 import dao.BookTypeDao;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import util.BookType;
-import util.Dbutil;
-import util.StringUtil;
-import util.Tableview;
+import util.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class ManageInterFrm {
     String query = null;
@@ -45,21 +38,22 @@ public class ManageInterFrm {
     private TableColumn<Tableview, String> name;
     @FXML
     private TableColumn<Tableview, String> desc;
-    private Dbutil dbutil = new Dbutil();
-    private BookTypeDao booktypedao = new BookTypeDao();
-    private BookDao bookdao = new BookDao();
+    private final Dbutil dbutil = new Dbutil();
+    private final BookTypeDao booktypedao = new BookTypeDao();
+    private final BookDao bookdao = new BookDao();
+    @FXML
+    private TitledPane operPane;
+
 
     @FXML
     void initialize() {
         showData();
-        booktypetable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tableview>() {
-            @Override
-            public void changed(ObservableValue<? extends Tableview> observableValue, Tableview tableview, Tableview t1) {
-                if (t1 != null) {
-                    idtxt.setText(t1.getId());
-                    nametxt.setText(t1.getBookTypeName());
-                    desctxt.setText(t1.getBookTypeDesc());
-                }
+        booktypetable.getSelectionModel().selectedItemProperty().addListener((observableValue, tableview, t1) -> {
+            if (t1 != null) {
+                idtxt.setText(t1.getId());
+                nametxt.setText(t1.getBookTypeName());
+                desctxt.setText(t1.getBookTypeDesc());
+                operPane.setDisable(false);
             }
         });
     }
@@ -70,19 +64,11 @@ public class ManageInterFrm {
         String name = nametxt.getText();
         String desc = desctxt.getText();
         if (StringUtil.isEmpty(id)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("错误");
-            alert.setHeaderText("错误");
-            alert.setContentText("请选择一条记录");
-            alert.showAndWait();
+            AlertUtil.showError("错误", "错误", "请选择一条记录");
             return;
         }
         if (StringUtil.isEmpty(name)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("错误");
-            alert.setHeaderText("错误");
-            alert.setContentText("请输入类型名称");
-            alert.showAndWait();
+            AlertUtil.showError("错误", "错误", "图书种类名称不能为空");
             return;
         }
         BookType bookType = new BookType(Integer.parseInt(id), name, desc);
@@ -91,18 +77,10 @@ public class ManageInterFrm {
             conn = dbutil.getConnection();
             int modifyNumber = booktypedao.update(conn, bookType);
             if (modifyNumber > 0) {
-                Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
-                alert3.setTitle("提示");
-                alert3.setHeaderText("提示");
-                alert3.setContentText("修改成功");
-                alert3.showAndWait();
+                AlertUtil.showAlert("提示", "提示", "修改成功");
                 showData();
             } else {
-                Alert alert4 = new Alert(Alert.AlertType.ERROR);
-                alert4.setTitle("错误");
-                alert4.setHeaderText("错误");
-                alert4.setContentText("修改失败");
-                alert4.showAndWait();
+                AlertUtil.showError("错误", "错误", "修改失败");
                 showData();
             }
         } catch (Exception ex) {
@@ -120,58 +98,36 @@ public class ManageInterFrm {
     void del(ActionEvent event) {
         String id = idtxt.getText();
         if (StringUtil.isEmpty(id)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("错误");
-            alert.setHeaderText("错误");
-            alert.setContentText("未选择要删除的项");
-            alert.showAndWait();
-            return;
+            AlertUtil.showError("错误", "错误", "请选择一条记录");
         } else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("确认");
-            alert.setHeaderText("确认");
-            alert.setContentText("确认删除？");
-            alert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
-                    conn = getConnection();
+            int n = AlertUtil.showConfirm("提示", "提示", "确定删除该图书种类吗？");
+            if (n == 1) {
+                conn = getConnection();
+                try {
+                    boolean flag = bookdao.existBookTypeId(conn, id);
+                    if (flag) {
+                        AlertUtil.showError("错误", "错误", "该图书种类下有图书，不能删除");
+                        return;
+                    }
+                    int deleteNumber;
+                    deleteNumber = booktypedao.delete(conn, id);
+                    if (deleteNumber > 0) {
+                        AlertUtil.showAlert("提示", "提示", "删除成功");
+                    } else {
+                        AlertUtil.showError("错误", "错误", "删除失败");
+                    }
+                    showData();
+                    resetValue();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                } finally {
                     try {
-                        boolean flag = bookdao.existBookTypeId(conn, id);
-                        if (flag) {
-                            Alert alert1 = new Alert(Alert.AlertType.ERROR);
-                            alert1.setTitle("错误");
-                            alert1.setHeaderText("错误");
-                            alert1.setContentText("该类型下有图书，不能删除");
-                            alert1.showAndWait();
-                            return;
-                        }
-                        int deleteNumber;
-                        deleteNumber = booktypedao.delete(conn, id);
-                        if (deleteNumber > 0) {
-                            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                            alert2.setTitle("提示");
-                            alert2.setHeaderText("提示");
-                            alert2.setContentText("删除成功");
-                            alert2.showAndWait();
-                            showData();
-                        } else {
-                            Alert alert2 = new Alert(Alert.AlertType.ERROR);
-                            alert2.setTitle("错误");
-                            alert2.setHeaderText("错误");
-                            alert2.setContentText("删除失败");
-                            alert2.showAndWait();
-                            showData();
-                        }
+                        dbutil.close(conn);
                     } catch (Exception ex) {
                         ex.printStackTrace();
-                    } finally {
-                        try {
-                            dbutil.close(conn);
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
                     }
                 }
-            });
+            }
         }
     }
 
@@ -193,23 +149,16 @@ public class ManageInterFrm {
     public ObservableList<Tableview> getTableviewList() {
         ObservableList<Tableview> TableviewList = FXCollections.observableArrayList();
         String searchBookTypeName = searchtxt.getText();
-        Connection conn = getConnection();
-        if (StringUtil.isEmpty(searchBookTypeName)) {
-            query = "SELECT * FROM booktype";
-        } else {
-            query = "SELECT * FROM booktype where bookTypeName like '%" + searchtxt.getText() + "%'";
-        }
-        Statement st;
-        ResultSet rs;
         try {
-            st = conn.createStatement();
-            rs = st.executeQuery(query);
+            Connection conn = getConnection();
+            BookType bookType = new BookType(searchBookTypeName);
+            ResultSet rs = booktypedao.list(conn, bookType);
             Tableview tableview;
             while (rs.next()) {
                 tableview = new Tableview(rs.getString("id"), rs.getString("bookTypeName"), rs.getString("BookTypeDesc"));
                 TableviewList.add(tableview);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
@@ -229,5 +178,12 @@ public class ManageInterFrm {
         name.setCellValueFactory(new PropertyValueFactory<>("bookTypeName"));
         desc.setCellValueFactory(new PropertyValueFactory<>("BookTypeDesc"));
         booktypetable.setItems(list);
+    }
+
+    public void resetValue() {
+        idtxt.setText("");
+        nametxt.setText("");
+        desctxt.setText("");
+        operPane.setDisable(true);
     }
 }

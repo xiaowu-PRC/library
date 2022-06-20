@@ -11,10 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import util.Book;
-import util.BookType;
-import util.Dbutil;
-import util.StringUtil;
+import util.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,14 +20,16 @@ import java.sql.ResultSet;
 public class BookAddInterFrm {
     @FXML
     private Button add;
-    private Dbutil dbutil = new Dbutil();
-    private BookTypeDao booktypedao = new BookTypeDao();
-    private BookDao bookdao = new BookDao();
-    private Book book=new Book();
+    private final Dbutil dbutil = new Dbutil();
+    private final BookTypeDao booktypedao = new BookTypeDao();
+    private final BookDao bookdao = new BookDao();
     Connection conn = null;
 
     @FXML
     private TextField authorTxt;
+
+    @FXML
+    private RXTextField totalTxt;
 
     @FXML
     private TextArea bookDescTxt;
@@ -55,9 +54,24 @@ public class BookAddInterFrm {
 
     @FXML
     private ToggleGroup sex;
+
     @FXML
-    void initialize(){
+    void initialize() {
         showData();
+        priceTxt.setTextFormatter(new TextFormatter<String>(change -> {
+            String text = change.getText();
+            if (text.matches("[0-9^\\d.]*")) {
+                return change;
+            }
+            return null;
+        }));
+        totalTxt.setTextFormatter(new TextFormatter<String>(change -> {
+            String text = change.getText();
+            if (text.matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+        }));
     }
 
     @FXML
@@ -72,29 +86,17 @@ public class BookAddInterFrm {
        String bookDesc = this.bookDescTxt.getText();
        if(StringUtil.isEmpty(bookName))
        {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-              alert.setTitle("错误");
-                alert.setHeaderText("错误");
-                alert.setContentText("请输入书名");
-                alert.showAndWait();
+           AlertUtil.showError("错误", "错误", "请输入书名");
                 return;
        }
        if(StringUtil.isEmpty(author))
        {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-              alert.setTitle("错误");
-                alert.setHeaderText("错误");
-                alert.setContentText("请输入作者");
-                alert.showAndWait();
+           AlertUtil.showError("错误", "错误", "请输入作者");
                 return;
        }
        if(StringUtil.isEmpty(price))
        {
-           Alert alert = new Alert(Alert.AlertType.ERROR);
-              alert.setTitle("错误");
-                alert.setHeaderText("错误");
-                alert.setContentText("请输入价格");
-                alert.showAndWait();
+           AlertUtil.showError("错误", "错误", "请输入价格");
                 return;
        }
        String sex="";
@@ -113,21 +115,12 @@ public class BookAddInterFrm {
        try {
            conn=getConnection();
            int addNum=bookdao.add(conn,book);
-           if(addNum>0)
-           {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("提示");
-                alert.setHeaderText("提示");
-                alert.setContentText("添加成功");
-                alert.showAndWait();
-                resetValue();
+           if(addNum>0) {
+               AlertUtil.showAlert("提示", "提示", "添加成功");
+               resetValue();
            }
            else{
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                 alert.setTitle("错误");
-                 alert.setHeaderText("错误");
-                 alert.setContentText("添加失败");
-                 alert.showAndWait();
+               AlertUtil.showError("错误", "错误", "添加失败");
            }
        }catch(Exception e){
            e.printStackTrace();
@@ -170,7 +163,7 @@ public class BookAddInterFrm {
     }
     public ObservableList<BookType> getBookTypeList() {
         ObservableList<BookType> bookTypeList = FXCollections.observableArrayList();
-        BookType bookType = null;
+        BookType bookType;
         try {
             Connection conn = getConnection();
             ResultSet rs = booktypedao.list(conn, new BookType());
@@ -191,6 +184,7 @@ public class BookAddInterFrm {
         bookTypeJcb.getSelectionModel().selectFirst();
     }
 
+    @FXML
     void deleteText(RXActionEvent event) {
         RXTextField tf = (RXTextField) event.getSource();
         tf.clear();

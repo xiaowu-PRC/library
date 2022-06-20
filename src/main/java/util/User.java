@@ -3,7 +3,7 @@ package util;
 public class User {
     private String password;
     private String username;
-    private int id;
+    private Integer id;
     private int isAdmin;
     private String sex;
 
@@ -14,8 +14,21 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    public String getSex() {
-        return sex;
+    public User(String username, String password, String sex, int isAdmin, Integer id) {
+        this.username = username;
+        this.password = password;
+        this.sex = sex;
+        this.isAdmin = isAdmin;
+        this.id = id;
+    }
+
+    public User(Integer id) {
+        this.id = id;
+    }
+
+    public User(Integer id, String username) {
+        this.id = id;
+        this.username = username;
     }
 
     public User() {
@@ -26,6 +39,10 @@ public class User {
         super();
         this.username = username;
         this.password = password;
+    }
+
+    public String getSex() {
+        return sex;
     }
 
     public void setSex(String sex) {
@@ -40,11 +57,11 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -269,6 +269,7 @@ public class BorrowBook {
         target.b_bookId.setText(s_idTxt.getText());
         stage.setTitle("确认借阅");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
         Stage stage1 = (Stage) search.getScene().getWindow();
         stage1.close();
