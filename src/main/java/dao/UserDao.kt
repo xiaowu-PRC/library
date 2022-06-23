@@ -1,8 +1,10 @@
 package dao
 
 import com.library.library.LibraryController
+import util.SHA256
 import util.StringUtil
 import util.User
+import java.security.MessageDigest
 import java.sql.Connection
 import java.sql.ResultSet
 
@@ -13,7 +15,9 @@ class UserDao {
         val sql = "select * from user where username = ? and password = ?"
         val pstmt = conn.prepareStatement(sql)
         pstmt.setString(1, user.username)
-        pstmt.setString(2, user.password)
+        var str = user.password
+        str = SHA256.getSha256Str(str)
+        pstmt.setString(2, str)
         val rs = pstmt.executeQuery()
         if (rs.next()) {
             resultUser = User()
@@ -30,7 +34,9 @@ class UserDao {
         val sql = "insert into user values(null,?,?,?,?)"
         val pstmt = conn.prepareStatement(sql)
         pstmt.setString(1, user.username)
-        pstmt.setString(2, user.password)
+        var str = user.password
+        str = SHA256.getSha256Str(str)
+        pstmt.setString(2, str)
         pstmt.setString(3, user.sex)
         pstmt.setInt(4, user.isAdmin)
         return pstmt.executeUpdate()
@@ -63,7 +69,9 @@ class UserDao {
         val sql = "update user set userName = ?,password = ?,sex=?,isAdmin=? where id = ?"
         val pstmt = conn.prepareStatement(sql)
         pstmt.setString(1, user.username)
-        pstmt.setString(2, user.password)
+        var str = user.password
+        str = SHA256.getSha256Str(str)
+        pstmt.setString(2, str)
         pstmt.setString(3, user.sex)
         pstmt.setInt(4, user.isAdmin)
         pstmt.setInt(5, user.id)
