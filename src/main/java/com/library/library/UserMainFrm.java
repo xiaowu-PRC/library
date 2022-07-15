@@ -28,15 +28,14 @@ public class UserMainFrm {
 
     @FXML
     private Button query;
-    private String Username;
     @FXML
     private MenuItem about;
 
 
     @FXML
     void initialize() {
-        Username = LibraryController.User_Name;
-        currentUser.setText("当前用户：" + Username);
+        String username = LibraryController.User_Name;
+        currentUser.setText("当前用户：" + username);
     }
 
     @FXML

@@ -8,20 +8,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import org.controlsfx.control.SearchableComboBox;
 import util.*;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 
 public class BorrowBook {
     public ObservableList<BookType> list;
@@ -58,13 +54,12 @@ public class BorrowBook {
     private Button borrow;
     @FXML
     private RXTextField s_authorTxt;
-    private Dbutil dbutil = new Dbutil();
-    private BookTypeDao booktypedao = new BookTypeDao();
-    private BookDao bookdao = new BookDao();
+    private final Dbutil dbutil = new Dbutil();
+    private final BookTypeDao booktypedao = new BookTypeDao();
+    private final BookDao bookdao = new BookDao();
     private Connection conn = null;
     @FXML
     private TableView<Tableview> bookTable;
-    private Book book;
 
     @FXML
     void initialize() {
@@ -87,7 +82,6 @@ public class BorrowBook {
                 s_bookTypeJcb.setItems(list2);
                 int n = s_bookTypeJcb.getItems().size();
                 for (int i = 0; i < n; i++) {
-                    BookType item = s_bookTypeJcb.getItems().get(i);
                     if (s_bookTypeJcb.getItems().get(i).getBookTypeName().equals(bookTypeName)) {
                         s_bookTypeJcb.getSelectionModel().select(i);
                         break;
@@ -167,7 +161,7 @@ public class BorrowBook {
 
     public ObservableList<BookType> getBookTypeList(String type) {
         ObservableList<BookType> bookTypeList = FXCollections.observableArrayList();
-        BookType bookType = null;
+        BookType bookType;
         try {
             Connection conn = getConnection();
             ResultSet rs = booktypedao.list(conn, new BookType());
@@ -199,7 +193,7 @@ public class BorrowBook {
 
     public ObservableList<BookType> getBookTypeList2(String type) {
         ObservableList<BookType> bookTypeList = FXCollections.observableArrayList();
-        BookType bookType = null;
+        BookType bookType;
         try {
             conn = getConnection();
             ResultSet rs = booktypedao.list(conn, new BookType());
@@ -236,6 +230,7 @@ public class BorrowBook {
         if (StringUtil.isEmpty(bookName) && StringUtil.isEmpty(author) && bookTypeId == -1 && StringUtil.isEmpty(s_idTxt.getText())) {
             AlertUtil.showWarning("提示", "提示", "请输入查询条件");
         }
+        Book book;
         if (StringUtil.isNotEmpty(s_idTxt.getText())) {
             int bookId = Integer.parseInt(s_idTxt.getText());
             book = new Book(bookId, bookName, author, bookTypeId);
@@ -252,27 +247,55 @@ public class BorrowBook {
     }
 
     @FXML
-    void borrow(ActionEvent event) throws IOException {
+    void borrow(ActionEvent event) throws Exception {
+        bookBorrowActionPerformed(event);
+    }
+
+    private void bookBorrowActionPerformed(ActionEvent event) throws Exception {
+        String uid = LibraryController.User_Uid;
+        String username = LibraryController.User_Name;
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = startDate.plusDays(7);
+        String time1 = startDate.toString();
+        String time2 = endDate.toString();
         String bookName = this.s_bookNameTxt.getText();
         String author = this.s_authorTxt.getText();
         BookType bookType = this.s_bookTypeJcb.getSelectionModel().getSelectedItem();
+        String book_type = this.s_bookTypeJcb.getSelectionModel().getSelectedItem().toString();
         int bookTypeId = bookType.getId();
+        String bookId = s_idTxt.getText();
         if (StringUtil.isEmpty(bookName) || StringUtil.isEmpty(author) || bookTypeId == -1 || StringUtil.isEmpty(s_idTxt.getText())) {
             AlertUtil.showError("错误", "错误", "请重新选择");
+            return;
         }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmBorrow.fxml"));
-        Parent parent = loader.load();
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        ConfirmBorrow target = loader.getController();
-        target.b_bookName.setText(s_bookNameTxt.getText());
-        target.b_bookId.setText(s_idTxt.getText());
-        stage.setTitle("确认借阅");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-        Stage stage1 = (Stage) search.getScene().getWindow();
-        stage1.close();
+        conn = getConnection();
+        boolean a = bookdao.checkOverTime(conn, uid);
+        if (a) {
+            AlertUtil.showError("错误", "错误", "您有超过归还期限的书，未处理前禁止再次借书!");
+            return;
+        }
+        boolean b = bookdao.notReturnBook(conn, uid, bookId);
+        if (b) {
+            AlertUtil.showError("错误", "错误", "您已借阅本书，不允许多本借阅!");
+            return;
+        }
+        int i = AlertUtil.showConfirm("确认", "是否确认借阅？", "借阅人:" + username + "\r\n借阅图书:" + bookName + "\r\n图书编号:" + bookId + "\r\n图书类别:" + book_type + "\r\n借阅开始:" + startDate + "\r\n最晚归还:" + endDate);
+        if (i == 1) {
+            conn = getConnection();
+            int result = 0;
+            try {
+                result = bookdao.borrow(conn, uid, bookId, time1, time2);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (result > 1) {
+                AlertUtil.showAlert("借阅成功", "提示", "借阅成功");
+            } else {
+                AlertUtil.showError("借阅失败", "提示", "借阅失败");
+            }
+            resetValue();
+            dbutil.close(conn);
+        }
     }
 
     public void showData2(String type) {
@@ -283,6 +306,10 @@ public class BorrowBook {
 
     @FXML
     void reset(ActionEvent event) {
+        resetValue();
+    }
+
+    public void resetValue() {
         initialize();
         s_idTxt.clear();
         s_bookNameTxt.clear();
@@ -293,6 +320,4 @@ public class BorrowBook {
         s_authorTxt.setDisable(false);
         s_bookTypeJcb.setDisable(false);
     }
-
-
 }

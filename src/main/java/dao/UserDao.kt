@@ -4,7 +4,6 @@ import com.library.library.LibraryController
 import util.SHA256
 import util.StringUtil
 import util.User
-import java.security.MessageDigest
 import java.sql.Connection
 import java.sql.ResultSet
 
@@ -52,6 +51,7 @@ class UserDao {
         if (StringUtil.isNotEmpty(user.username)) {
             sql.append(" and where username = ").append(user.username)
         }
+        sql.append(" ORDER BY id ASC")
         val pstmt = conn.prepareStatement(sql.toString())
         return pstmt.executeQuery()
     }

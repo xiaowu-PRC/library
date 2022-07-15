@@ -37,6 +37,8 @@ public class MainFrameController {
 
     @FXML
     private MenuItem userManage;
+    @FXML
+    private MenuItem userBorrow;
 
 
     @FXML
@@ -143,6 +145,21 @@ public class MainFrameController {
         try {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("UserAddInterFrm.fxml")));
             newscene.setTitle("用户添加");
+            newscene.setScene(new Scene(root));
+            newscene.setResizable(false);
+            newscene.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void userBorrow(ActionEvent event) {
+        Stage newscene = new Stage();
+        Parent root;
+        try {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("BookAppointmentInterFrm.fxml")));
+            newscene.setTitle("用户借阅信息管理");
             newscene.setScene(new Scene(root));
             newscene.setResizable(false);
             newscene.show();

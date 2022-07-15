@@ -9,19 +9,6 @@ import java.security.NoSuchAlgorithmException;
  * 思路：
  */
 public class MD5 {
-
-    //测试
-    public static void main(String[] args) {
-        System.out.println("md5:" + md5("YEN"));
-    }
-
-    /**
-     * 获取特定字符串的MD5码
-     * eg:md5("YEN") 输出：0d9962cb9239354e6da0ca55ebd0b93c
-     *
-     * @param str
-     * @return
-     */
     public static String md5(String str) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -29,11 +16,15 @@ public class MD5 {
             byte[] b = md.digest();
 
             int temp;
-            StringBuffer sb = new StringBuffer("");
-            for (int offset = 0; offset < b.length; offset++) {
-                temp = b[offset];
-                if (temp < 0) temp += 256;
-                if (temp < 16) sb.append("0");
+            StringBuilder sb = new StringBuilder();
+            for (byte value : b) {
+                temp = value;
+                if (temp < 0) {
+                    temp += 256;
+                }
+                if (temp < 16) {
+                    sb.append("0");
+                }
                 sb.append(Integer.toHexString(temp));
             }
             str = sb.toString();

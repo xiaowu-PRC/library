@@ -32,6 +32,8 @@
                                 <MenuItem fx:id="userAdd" mnemonicParsing="false" onAction="#userAdd" text="用户添加"/>
                                 <MenuItem fx:id="userManage" mnemonicParsing="false" onAction="#userManage"
                                           text="用户信息维护"/>
+                                <MenuItem fx:id="userBorrow" mnemonicParsing="false" onAction="#userBorrow"
+                                          text="用户借阅信息管理"/>
                             </items>
                         </Menu>
                         <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exit" text="安全退出"/>

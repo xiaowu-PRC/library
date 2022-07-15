@@ -2,7 +2,6 @@ package com.library.library
 
 import dao.BookDao
 import io.github.palexdev.materialfx.controls.legacy.MFXLegacyTableView
-import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
@@ -65,8 +64,9 @@ class ReturnBook {
     private val dbutil = Dbutil()
     private val bookdao = BookDao()
     private val nowTime = LocalDateTime.now()
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-    val formatted = nowTime.format(formatter)
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    private val formatted = nowTime.format(formatter)
+    private var bookid: Int = 0
 
     @FXML
     fun initialize() {
@@ -105,6 +105,10 @@ class ReturnBook {
 
     @FXML
     fun reset(event: ActionEvent?) {
+        resetValue()
+    }
+
+    private fun resetValue() {
         initialize()
         s_no.clear()
         s_bookNameTxt.clear()
@@ -122,10 +126,13 @@ class ReturnBook {
     private fun bookSearchActionPerformed(event: ActionEvent) {
         val bookName = s_bookNameTxt.text
         val bookID = s_bookIDTxt.text
-        val bookid = bookID.toInt()
         val id = s_no.text
         if (StringUtil.isEmpty(bookName) && StringUtil.isEmpty(bookID) && StringUtil.isEmpty(id)) {
             AlertUtil.showWarning("提示", "提示", "请输入查询条件")
+            return
+        }
+        if (StringUtil.isNotEmpty(bookID)) {
+            bookid = bookID.toInt()
         }
         val book = Book(id, bookid, bookName)
         showTableData(book)
@@ -140,14 +147,21 @@ class ReturnBook {
         val id = s_no.text
         val bookId = s_bookIDTxt.text
         val bookName = s_bookNameTxt.text
+        conn = getConnection()
         if (StringUtil.isEmpty(id) || StringUtil.isEmpty(bookId) || StringUtil.isEmpty(bookName)) {
             AlertUtil.showError("错误", "错误", "请重新选择")
+            return
+        }
+        val uid = LibraryController.User_Uid
+        val a = bookdao.overTime(conn, uid, id)
+        if (a) {
+            AlertUtil.showError("错误", "错误", "本书已超过最后归还期限，请先续期或联系管理员处理!")
             return
         }
         val i = AlertUtil.showConfirm(
             "确认",
             "确认归还下列图书吗？",
-            "编号：" + id + "\r\n" + "图书编号：" + bookId + "\r\n" + "图书名称：" + bookName
+            "编号：$id\r\n图书编号：$bookId\r\n图书名称：$bookName"
         )
         if (i == 1) {
             conn = getConnection()
@@ -155,7 +169,7 @@ class ReturnBook {
             if (n > 0) {
                 AlertUtil.showAlert("提示", "提示", "归还成功")
             }
-            reset(null)
+            resetValue()
             showTableData()
         }
     }
@@ -165,8 +179,7 @@ class ReturnBook {
         val TableviewList = FXCollections.observableArrayList<Tableview>()
         conn = getConnection()
         try {
-            val book = Book(null, null, null)
-            val rs: ResultSet = bookdao.list3(conn, book)
+            val rs: ResultSet = bookdao.list3(conn)
             var tableview: Tableview
             while (rs.next()) {
                 tableview = Tableview(
@@ -192,11 +205,11 @@ class ReturnBook {
         return TableviewList
     }
 
-    fun getTableviewList(book: Book): ObservableList<Tableview>? {
+    private fun getTableviewList(book: Book): ObservableList<Tableview>? {
         val TableviewList = FXCollections.observableArrayList<Tableview>()
         conn = getConnection()
         try {
-            val rs = bookdao.list(conn, book)
+            val rs = bookdao.list2(conn, book)
             var tableview: Tableview
             while (rs.next()) {
                 tableview = Tableview(
@@ -243,7 +256,7 @@ class ReturnBook {
         queryTable.items = list
     }
 
-    fun showTableData(book: Book) {
+    private fun showTableData(book: Book) {
         val list = getTableviewList(book)
         no.cellValueFactory = PropertyValueFactory("ID")
         bookId.cellValueFactory = PropertyValueFactory("book_ID")

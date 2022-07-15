@@ -25,8 +25,8 @@ public class BookTypeAdd {
 
     @FXML
     private Button reset;
-    private Dbutil dbutil = new Dbutil();
-    private BookTypeDao booktypedao = new BookTypeDao();
+    private final Dbutil dbutil = new Dbutil();
+    private final BookTypeDao booktypedao = new BookTypeDao();
 
     @FXML
     void TypeAdd(ActionEvent event) {

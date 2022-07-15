@@ -6,13 +6,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import util.AlertUtil;
-import util.Book;
 import util.Dbutil;
 import util.Tableview;
 
@@ -24,7 +20,6 @@ import java.util.Optional;
 public class Query {
     private final Dbutil dbutil = new Dbutil();
     private final BookDao bookdao = new BookDao();
-    public String s;
     public LocalDate date;
     public String id;
     @FXML
@@ -79,23 +74,27 @@ public class Query {
             AlertUtil.showError("错误", "错误", "此图书已还，无法续期");
             return;
         }
-        ChoiceDialog<Integer> dialog = new ChoiceDialog<Integer>(7, 1, 2, 3, 4, 5, 6, 7);
-        dialog.setTitle("选择天数");
-        dialog.setHeaderText("请选择天数\n最长为7天\n未选择或无效选择则默认为7天");
-        dialog.setContentText("请选择天数");
-        Optional<Integer> addDate = dialog.showAndWait();
-        if (addDate.isEmpty()) {
+        conn = getConnection();
+        boolean a = bookdao.Extended(conn, id);
+        if (a) {
+            AlertUtil.showError("错误", "错误", "根据相关规定要求，所有借阅最多续期一次，本书您已续过期!");
             return;
         }
-        LocalDate newEndDate = date.plusDays(addDate.orElse(7));
-        conn = getConnection();
-        int n = bookdao.renewal(conn, id, newEndDate.toString());
-        if (n > 0) {
-            AlertUtil.showAlert("提示", "提示", "续借成功");
-        } else {
-            AlertUtil.showAlert("提示", "提示", "续借失败");
+        ChoiceDialog<Integer> dialog = new ChoiceDialog<>(7, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14);
+        dialog.setTitle("选择天数");
+        dialog.setHeaderText("请选择天数\n最长为14天\n未选择或无效选择则默认为7天");
+        dialog.setContentText("请选择天数");
+        Optional<Integer> addDate = dialog.showAndWait();
+        if (addDate.isPresent()) {
+            LocalDate newEndDate = date.plusDays(addDate.orElse(7));
+            int n = bookdao.renewal(conn, id, newEndDate.toString());
+            if (n > 0) {
+                AlertUtil.showAlert("提示", "提示", "续借成功");
+            } else {
+                AlertUtil.showAlert("提示", "提示", "续借失败");
+            }
+            showTableData();
         }
-        showTableData();
     }
 
 
@@ -103,8 +102,7 @@ public class Query {
         ObservableList<Tableview> TableviewList = FXCollections.observableArrayList();
         conn = getConnection();
         try {
-            Book book = new Book(null, null, null);
-            ResultSet rs = bookdao.list2(conn, book);
+            ResultSet rs = bookdao.list4(conn);
             Tableview tableview;
             while (rs.next()) {
                 tableview = new Tableview(rs.getString("ID"), rs.getString("Book_ID"), rs.getString("bookName"), rs.getString("Start_Time"), rs.getString("End_Time"), rs.getString("Appointment_Time"), rs.getString("isReturned"));

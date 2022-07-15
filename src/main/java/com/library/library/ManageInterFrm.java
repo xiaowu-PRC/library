@@ -134,6 +134,7 @@ public class ManageInterFrm {
     @FXML
     private void search(ActionEvent event) {
         showData();
+        operPane.setDisable(true);
     }
 
     public Connection getConnection() {

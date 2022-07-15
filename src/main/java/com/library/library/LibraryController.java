@@ -30,9 +30,8 @@ public class LibraryController {
     private RXPasswordField passwordtxt;
     @FXML
     private Button login;
-    private UserDao userdao = new UserDao();
-    private Dbutil dbutil = new Dbutil();
-    private int isAdmin;
+    private final UserDao userdao = new UserDao();
+    private final Dbutil dbutil = new Dbutil();
 
     @FXML
     void initialize() {
@@ -53,6 +52,7 @@ public class LibraryController {
                 User_Name = loginUser.getUsername();
                 int uid = loginUser.getId();
                 User_Uid = String.valueOf(uid);
+                int isAdmin;
                 if (loginUser.getIsAdmin() == 1) {
                     isAdmin = 1;
                 } else {
@@ -61,7 +61,7 @@ public class LibraryController {
                 if (isAdmin == 1) {
                     AlertUtil.showAlert("登录成功", "欢迎", "欢迎管理员" + loginUser.getUsername());
                     Stage thirdScene = new Stage();
-                    Parent root = null;
+                    Parent root;
                     try {
                         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainFrm.fxml")));
                         thirdScene.setTitle("管理员主界面");
@@ -91,7 +91,7 @@ public class LibraryController {
                         e.printStackTrace();
                     }
                 }
-            } else if (loginUser == null) {
+            } else {
                 AlertUtil.showError("失败", "登录失败", "用户名或密码错误");
             }
         } catch (Exception e) {

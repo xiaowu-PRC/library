@@ -21,4 +21,5 @@ module com.library.library {
     opens com.library.library to javafx.fxml, javafx.base;
     opens util to javafx.base;
     exports com.library.library;
+    exports util;
 }

@@ -24,7 +24,7 @@ public class BookManageInterFrm {
     public ObservableList<BookType> list2;
     Connection conn = null;
     String query = null;
-    Dbutil dbutil = new Dbutil();
+    final Dbutil dbutil = new Dbutil();
     @FXML
     private TableColumn<Tableview, String> Author;
     @FXML
@@ -177,6 +177,7 @@ public class BookManageInterFrm {
         int bookTypeId = bookType.getId();
         Book book = new Book(bookName, author, bookTypeId);
         showTableData(book);
+        operatePanel.setDisable(true);
     }
 
     @FXML

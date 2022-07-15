@@ -1,6 +1,7 @@
 package com.library.library
 
 import com.leewyatt.rxcontrols.controls.RXTextField
+import com.leewyatt.rxcontrols.event.RXActionEvent
 import dao.UserDao
 import javafx.beans.value.ObservableValue
 import javafx.collections.FXCollections
@@ -119,6 +120,10 @@ class UserManageInterFrm {
 
     @FXML
     fun del(event: ActionEvent) {
+        userDelActionPerformed(event)
+    }
+
+    private fun userDelActionPerformed(event: ActionEvent) {
         conn = getConnection()
         val id = m_no.text.toInt()
         val user = User(id)
@@ -182,6 +187,7 @@ class UserManageInterFrm {
         val userName = s_userName.text
         val user = User(id, userName)
         showTableData(user)
+        userPane.isDisable = true
     }
 
 
@@ -281,5 +287,11 @@ class UserManageInterFrm {
         female.isSelected = false
         isAdmin.isSelected = false
         userPane.isDisable = true
+    }
+
+    @FXML
+    fun deleteText(event: RXActionEvent) {
+        val tf = event.source as RXTextField
+        tf.clear()
     }
 }

@@ -33,9 +33,9 @@
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
                         <Label layoutX="323.0" layoutY="54.0" text="用户名："/>
-                        <RXTextField fx:id="s_userName" layoutX="371.0" layoutY="50.0"/>
+                        <RXTextField fx:id="s_userName" layoutX="371.0" layoutY="50.0" onClickButton="#deleteText"/>
                         <Label layoutX="69.0" layoutY="54.0" text="编号："/>
-                        <RXTextField fx:id="s_no" layoutX="105.0" layoutY="50.0"/>
+                        <RXTextField fx:id="s_no" layoutX="105.0" layoutY="50.0" onClickButton="#deleteText"/>
                         <Button fx:id="search" layoutX="661.0" layoutY="35.0" mnemonicParsing="false" onAction="#search"
                                 prefHeight="47.0" prefWidth="86.0" text="查询"/>
                     </children>
