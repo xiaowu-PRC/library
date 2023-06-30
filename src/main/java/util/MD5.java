@@ -2,12 +2,6 @@ package util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-/**
- * DateTime: 2016/9/17 17:18
- * 功能：
- * 思路：
- */
 public class MD5 {
     public static String md5(String str) {
         try {

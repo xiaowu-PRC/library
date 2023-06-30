@@ -17,6 +17,8 @@ module com.library.library {
     requires com.jfoenix;
     requires MaterialFX;
     requires kotlin.stdlib;
+    requires static lombok;
+    requires mysql.connector.java;
 
     opens com.library.library to javafx.fxml, javafx.base;
     opens util to javafx.base;

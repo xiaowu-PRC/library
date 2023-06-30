@@ -29,7 +29,7 @@
         </MFXLegacyTableView>
         <Button fx:id="renewal" layoutX="383.0" layoutY="555.0" mnemonicParsing="false" onAction="#renewal"
                 prefHeight="71.0" prefWidth="124.0" text="延长借阅"/>
-        <Label layoutX="291.0" layoutY="506.0" text="注：请先选择项目后再点击延长借阅按钮，最多延长7天。"
+        <Label layoutX="291.0" layoutY="506.0" text="注：请先选择项目后再点击延长借阅按钮，最多延长14天。"
                underline="true"/>
         <Label layoutX="291.0" layoutY="478.0" text="注：根据相关规定要求，最多仅可续期一次。" underline="true"/>
     </children>

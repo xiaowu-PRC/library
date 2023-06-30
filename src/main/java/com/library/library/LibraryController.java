@@ -22,6 +22,8 @@ import java.util.Objects;
 public class LibraryController {
     public static String User_Uid;
     public static String User_Name;
+    private final UserDao userdao = new UserDao();
+    private final Dbutil dbutil = new Dbutil();
     @FXML
     private Button exit;
     @FXML
@@ -30,8 +32,6 @@ public class LibraryController {
     private RXPasswordField passwordtxt;
     @FXML
     private Button login;
-    private final UserDao userdao = new UserDao();
-    private final Dbutil dbutil = new Dbutil();
 
     @FXML
     void initialize() {
@@ -52,13 +52,7 @@ public class LibraryController {
                 User_Name = loginUser.getUsername();
                 int uid = loginUser.getId();
                 User_Uid = String.valueOf(uid);
-                int isAdmin;
                 if (loginUser.getIsAdmin() == 1) {
-                    isAdmin = 1;
-                } else {
-                    isAdmin = 0;
-                }
-                if (isAdmin == 1) {
                     AlertUtil.showAlert("登录成功", "欢迎", "欢迎管理员" + loginUser.getUsername());
                     Stage thirdScene = new Stage();
                     Parent root;
@@ -73,8 +67,7 @@ public class LibraryController {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
-                if (isAdmin == 0) {
+                } else {
                     AlertUtil.showAlert("登录成功", "欢迎", "欢迎亲爱的" + loginUser.getUsername() + "用户登录！");
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("UserMainFrm.fxml"));
