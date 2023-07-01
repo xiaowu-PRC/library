@@ -14,6 +14,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 
 public class ManageInterFrm {
+    private final Dbutil dbutil = new Dbutil();
+    private final BookTypeDao booktypedao = new BookTypeDao();
+    private final BookDao bookdao = new BookDao();
     String query = null;
     Connection conn = null;
     @FXML
@@ -38,9 +41,6 @@ public class ManageInterFrm {
     private TableColumn<Tableview, String> name;
     @FXML
     private TableColumn<Tableview, String> desc;
-    private final Dbutil dbutil = new Dbutil();
-    private final BookTypeDao booktypedao = new BookTypeDao();
-    private final BookDao bookdao = new BookDao();
     @FXML
     private TitledPane operPane;
 

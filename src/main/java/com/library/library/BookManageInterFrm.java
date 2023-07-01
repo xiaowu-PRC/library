@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 
 public class BookManageInterFrm {
+    final Dbutil dbutil = new Dbutil();
     private final BookType bookType = new BookType();
     private final BookTypeDao booktypedao = new BookTypeDao();
     private final BookDao bookdao = new BookDao();
@@ -24,7 +25,6 @@ public class BookManageInterFrm {
     public ObservableList<BookType> list2;
     Connection conn = null;
     String query = null;
-    final Dbutil dbutil = new Dbutil();
     @FXML
     private TableColumn<Tableview, String> Author;
     @FXML
@@ -125,7 +125,7 @@ public class BookManageInterFrm {
                 } else if ("女".equals(sex)) {
                     femaleJrb.setSelected(true);
                 }
-                priceTxt.setText(t1.getPrice() + "");
+                priceTxt.setText(String.valueOf(t1.getPrice()));
                 bookDescTxt.setText(t1.getBookDesc());
                 String bookTypeName = t1.getBookTypeName();
                 totalTxt.setText(t1.getTotal());

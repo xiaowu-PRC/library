@@ -2,9 +2,11 @@ package util;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
     private String password;
     private String username;
@@ -34,10 +36,6 @@ public class User {
     public User(Integer id, String username) {
         this.id = id;
         this.username = username;
-    }
-
-    public User() {
-        super();
     }
 
     public User(String username, String password) {

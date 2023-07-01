@@ -14,19 +14,16 @@ import util.StringUtil;
 import java.sql.Connection;
 
 public class BookTypeAdd {
-    @FXML
-    private Button BookTypeAdd;
-
-    @FXML
-    private TextField typetxt;
-
-    @FXML
-    private TextArea desctxt;
-
-    @FXML
-    private Button reset;
     private final Dbutil dbutil = new Dbutil();
     private final BookTypeDao booktypedao = new BookTypeDao();
+    @FXML
+    private Button BookTypeAdd;
+    @FXML
+    private TextField typetxt;
+    @FXML
+    private TextArea desctxt;
+    @FXML
+    private Button reset;
 
     @FXML
     void TypeAdd(ActionEvent event) {

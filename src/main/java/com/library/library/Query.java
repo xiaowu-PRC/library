@@ -6,7 +6,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import util.AlertUtil;
 import util.Dbutil;
@@ -62,7 +65,7 @@ public class Query {
         queryTable.getSelectionModel().selectedItemProperty().addListener((observableValue, tableview, t1) -> {
             if (t1 != null) {
                 date = LocalDate.parse(t1.getEnd_Time());
-                id = t1.getID();
+                id = t1.getUid();
                 returned = t1.getIsReturned();
             }
         });

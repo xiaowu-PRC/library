@@ -18,13 +18,12 @@ import java.sql.ResultSet;
 
 
 public class BookAddInterFrm {
-    @FXML
-    private Button add;
     private final Dbutil dbutil = new Dbutil();
     private final BookTypeDao booktypedao = new BookTypeDao();
     private final BookDao bookdao = new BookDao();
     Connection conn = null;
-
+    @FXML
+    private Button add;
     @FXML
     private TextField authorTxt;
 
@@ -80,57 +79,51 @@ public class BookAddInterFrm {
     }
 
     private void bookAddActionPerformed(ActionEvent evt) {
-       String bookName =this.bookNameTxt.getText();
-       String author = this.authorTxt.getText();
-       String price=this.priceTxt.getText();
-       String bookDesc = this.bookDescTxt.getText();
-       if(StringUtil.isEmpty(bookName))
-       {
-           AlertUtil.showError("错误", "错误", "请输入书名");
-                return;
-       }
-       if(StringUtil.isEmpty(author))
-       {
-           AlertUtil.showError("错误", "错误", "请输入作者");
-                return;
-       }
-       if(StringUtil.isEmpty(price))
-       {
-           AlertUtil.showError("错误", "错误", "请输入价格");
-                return;
-       }
-       String sex="";
-       if(manJrb.isSelected())
-       {
-           sex="男";
-       }
-       if(femaleJrb.isSelected())
-       {
-           sex="女";
-       }
-       BookType bookType=bookTypeJcb.getSelectionModel().getSelectedItem();
-       int bookTypeId= bookType.getId();
-       Book book=new Book(bookName,author,sex,Float.parseFloat(price),bookTypeId,bookDesc);
-       Connection conn=null;
-       try {
-           conn=getConnection();
-           int addNum=bookdao.add(conn,book);
-           if(addNum>0) {
-               AlertUtil.showAlert("提示", "提示", "添加成功");
-               resetValue();
-           }
-           else{
-               AlertUtil.showError("错误", "错误", "添加失败");
-           }
-       }catch(Exception e){
-           e.printStackTrace();
-       }finally{
-           try {
-               dbutil.close(conn);
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
-       }
+        String bookName = this.bookNameTxt.getText();
+        String author = this.authorTxt.getText();
+        String price = this.priceTxt.getText();
+        String bookDesc = this.bookDescTxt.getText();
+        if (StringUtil.isEmpty(bookName)) {
+            AlertUtil.showError("错误", "错误", "请输入书名");
+            return;
+        }
+        if (StringUtil.isEmpty(author)) {
+            AlertUtil.showError("错误", "错误", "请输入作者");
+            return;
+        }
+        if (StringUtil.isEmpty(price)) {
+            AlertUtil.showError("错误", "错误", "请输入价格");
+            return;
+        }
+        String sex = "";
+        if (manJrb.isSelected()) {
+            sex = "男";
+        }
+        if (femaleJrb.isSelected()) {
+            sex = "女";
+        }
+        BookType bookType = bookTypeJcb.getSelectionModel().getSelectedItem();
+        int bookTypeId = bookType.getId();
+        Book book = new Book(bookName, author, sex, Float.parseFloat(price), bookTypeId, bookDesc);
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            int addNum = bookdao.add(conn, book);
+            if (addNum > 0) {
+                AlertUtil.showAlert("提示", "提示", "添加成功");
+                resetValue();
+            } else {
+                AlertUtil.showError("错误", "错误", "添加失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                dbutil.close(conn);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
@@ -161,6 +154,7 @@ public class BookAddInterFrm {
             throw new RuntimeException(e);
         }
     }
+
     public ObservableList<BookType> getBookTypeList() {
         ObservableList<BookType> bookTypeList = FXCollections.observableArrayList();
         BookType bookType;
@@ -178,8 +172,9 @@ public class BookAddInterFrm {
         }
         return bookTypeList;
     }
+
     public void showData() {
-        ObservableList<BookType> list =getBookTypeList();
+        ObservableList<BookType> list = getBookTypeList();
         bookTypeJcb.setItems(list);
         bookTypeJcb.getSelectionModel().selectFirst();
     }

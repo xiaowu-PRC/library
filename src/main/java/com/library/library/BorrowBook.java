@@ -20,6 +20,9 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 
 public class BorrowBook {
+    private final Dbutil dbutil = new Dbutil();
+    private final BookTypeDao booktypedao = new BookTypeDao();
+    private final BookDao bookdao = new BookDao();
     public ObservableList<BookType> list;
     public ObservableList<BookType> list2;
     @FXML
@@ -54,9 +57,6 @@ public class BorrowBook {
     private Button borrow;
     @FXML
     private RXTextField s_authorTxt;
-    private final Dbutil dbutil = new Dbutil();
-    private final BookTypeDao booktypedao = new BookTypeDao();
-    private final BookDao bookdao = new BookDao();
     private Connection conn = null;
     @FXML
     private TableView<Tableview> bookTable;

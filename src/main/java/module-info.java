@@ -16,7 +16,6 @@ module com.library.library {
     requires rxcontrols;
     requires com.jfoenix;
     requires MaterialFX;
-    requires kotlin.stdlib;
     requires static lombok;
     requires mysql.connector.java;
 

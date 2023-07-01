@@ -2,7 +2,10 @@ package dao;
 
 import util.BookType;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class BookTypeDao {
     public int add(Connection conn, BookType bookType) throws Exception {
